@@ -1,0 +1,15 @@
+* {
+	box-sizing: border-box;
+}
+
+:root {
+	--main-bg: #f8f8f8;
+
+	--text-color: #2e2e2e;
+	--accent-color: #c409d1;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 40px;
+}
