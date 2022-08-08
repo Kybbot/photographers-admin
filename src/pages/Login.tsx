@@ -4,9 +4,11 @@ const Login = () => {
 	return (
 		<main className="main">
 			<div className="container h-100">
-				<section className="login">
+				<section className="login" aria-labelledby="loginSectionTitle">
 					<div className="login__container">
-						<h1 className="login__title">Log in</h1>
+						<h1 className="login__title" id="loginSectionTitle">
+							Log in
+						</h1>
 						<p className="login__text">Enter your credentials to acces yout account.</p>
 						<form className="form login__form">
 							<label className="form__label" htmlFor="login">
