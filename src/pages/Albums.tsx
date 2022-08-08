@@ -5,15 +5,15 @@ const Albums = () => {
 		<main className="main">
 			<div className="container h-100">
 				<section className="albums" aria-labelledby="albumsSectionTitle">
-					<div className="albums__container">
-						<h1 className="albums__title" id="albumsSectionTitle">
-							Albums Catalog
-						</h1>
-						<button type="button" className="btn albums__btn" aria-label="Create new album" title="Create new album">
-							+
-						</button>
-					</div>
+					<h1 className="albums__title" id="albumsSectionTitle">
+						Albums Catalog
+					</h1>
 					<div className="albums__grid">
+						<article className="albums__article">
+							<button className="albums__new">+</button>
+							<p className="albums__name">Add new album</p>
+							<p className="albums__location">Site</p>
+						</article>
 						<article className="albums__article">
 							<div className="albums__wrapper">
 								<img
