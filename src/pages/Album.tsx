@@ -29,7 +29,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -57,7 +57,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -85,7 +85,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -113,7 +113,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -141,7 +141,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -169,7 +169,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -197,7 +197,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -225,7 +225,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -253,7 +253,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -281,7 +281,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -309,7 +309,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -337,7 +337,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -365,7 +365,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -393,7 +393,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
@@ -421,7 +421,7 @@ const Album = () => {
 							</div>
 							<div className="album__controls">
 								<p className="album__name">Name</p>
-								<button className="album__setting" type="button" aria-label="Photo settings">
+								<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
 									<svg
 										focusable="false"
 										aria-hidden="true"
