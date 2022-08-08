@@ -9,7 +9,7 @@ const Albums = () => {
 						<h1 className="albums__title" id="albumsSectionTitle">
 							Albums Catalog
 						</h1>
-						<button className="btn albums__btn" aria-label="Create new album" title="Create new album">
+						<button type="button" className="btn albums__btn" aria-label="Create new album" title="Create new album">
 							+
 						</button>
 					</div>
