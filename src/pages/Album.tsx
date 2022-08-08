@@ -17,7 +17,9 @@ const Album: React.FC = () => {
 					<div className="album__grid">
 						<article className="album__article">
 							<button className="album__new">+</button>
-							<p className="album__name">Add new photos</p>
+							<div className="album__controls">
+								<p className="album__name">Add new photos</p>
+							</div>
 							<p className="album__location">Site</p>
 						</article>
 						<article className="album__article">

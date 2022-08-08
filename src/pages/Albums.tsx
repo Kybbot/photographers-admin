@@ -12,7 +12,9 @@ const Albums: React.FC = () => {
 					<div className="albums__grid">
 						<article className="albums__article">
 							<button className="albums__new">+</button>
-							<p className="albums__name">Add new album</p>
+							<div className="albums__controls">
+								<p className="albums__name">Add new album</p>
+							</div>
 							<p className="albums__location">Site</p>
 						</article>
 						<article className="albums__article">
@@ -23,21 +25,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/1">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -48,21 +55,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/2">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -73,21 +85,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/3">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -98,21 +115,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/4">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -123,21 +145,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/5">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -148,21 +175,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/6">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -173,21 +205,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/7">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -198,21 +235,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/8">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -223,21 +265,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/9">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -248,21 +295,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/10">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -273,21 +325,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/11">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -298,21 +355,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/12">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -323,21 +385,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/13">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -348,21 +415,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/14">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -373,21 +445,26 @@ const Albums: React.FC = () => {
 									alt=""
 								/>
 							</div>
-							<Link className="albums__link" to="/album/15">
-								<p className="albums__name">Name</p>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#external-link" />
-								</svg>
-							</Link>
+							<div className="albums__controls">
+								<Link className="albums__link" to="/album/1">
+									Name
+								</Link>
+								<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+									<svg
+										focusable="false"
+										aria-hidden="true"
+										fill="none"
+										width="16"
+										height="16"
+										stroke="#000000"
+										strokeWidth="2"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									>
+										<use xlinkHref="#settings" />
+									</svg>
+								</button>
+							</div>
 							<p className="albums__location">Locaton</p>
 						</article>
 					</div>

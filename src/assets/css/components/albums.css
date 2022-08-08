@@ -22,13 +22,20 @@
 	border-radius: var(--radius);
 }
 
-.albums__link {
+.albums__controls {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding-right: 5px;
+	margin: 10px 0 5px 0;
+}
+
+.albums__link {
 	color: var(--text-color);
 	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .albums__link svg {
@@ -39,11 +46,17 @@
 	text-decoration: underline;
 }
 
+.albums__setting {
+	background-color: transparent;
+	padding: 0;
+	border-style: none;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+}
+
 .albums__name {
-	margin: 10px 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	margin: 0;
 }
 
 .albums__location {
