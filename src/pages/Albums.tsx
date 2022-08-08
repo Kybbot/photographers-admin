@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Albums = () => {
+const Albums: React.FC = () => {
 	return (
 		<main className="main">
 			<div className="container h-100">
@@ -22,7 +23,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/1">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -36,7 +37,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -47,7 +48,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/2">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -61,7 +62,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -72,7 +73,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/3">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -86,7 +87,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -97,7 +98,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/4">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -111,7 +112,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -122,7 +123,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/5">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -136,7 +137,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -147,7 +148,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/6">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -161,7 +162,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -172,7 +173,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/7">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -186,7 +187,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -197,7 +198,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/8">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -211,7 +212,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -222,7 +223,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/9">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -236,7 +237,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -247,7 +248,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/10">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -261,7 +262,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -272,7 +273,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/11">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -286,7 +287,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -297,7 +298,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/12">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -311,7 +312,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -322,7 +323,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/13">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -336,7 +337,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -347,7 +348,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/14">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -361,7 +362,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 						<article className="albums__article">
@@ -372,7 +373,7 @@ const Albums = () => {
 									alt=""
 								/>
 							</div>
-							<a className="albums__link" href="/">
+							<Link className="albums__link" to="/album/15">
 								<p className="albums__name">Name</p>
 								<svg
 									focusable="false"
@@ -386,7 +387,7 @@ const Albums = () => {
 								>
 									<use xlinkHref="#external-link" />
 								</svg>
-							</a>
+							</Link>
 							<p className="albums__location">Locaton</p>
 						</article>
 					</div>

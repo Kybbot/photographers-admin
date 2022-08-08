@@ -16,6 +16,7 @@
 }
 
 .album__btn {
+	text-decoration: none;
 	padding: 8px 10px;
 }
 

@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Album = () => {
+const Album: React.FC = () => {
 	return (
 		<main className="main">
 			<div className="container h-100">
@@ -9,9 +10,9 @@ const Album = () => {
 						<h1 className="album__title" id="albumSectionTitle">
 							Album Name
 						</h1>
-						<button type="button" className="btn album__btn" aria-label="Go back" title="Go back">
+						<Link to="/" className="btn album__btn" aria-label="Go back" title="Go back">
 							Go back
-						</button>
+						</Link>
 					</div>
 					<div className="album__grid">
 						<article className="album__article">
