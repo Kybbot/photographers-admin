@@ -1,12 +1,11 @@
 import React from "react";
+import Login from "./pages/Login";
 
 const App: React.FC = () => {
 	return (
-		<div className="App">
-			<h1>App</h1>
-			<p>Lorem, ipsum.</p>
-			<img src="./sds.jpg" alt="" />
-		</div>
+		<>
+			<Login />
+		</>
 	);
 };
 

@@ -1,0 +1,16 @@
+.login {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login__title {
+	font-size: 32px;
+	margin: 0 0 20px 0;
+}
+
+.login__text {
+	font-size: 18px;
+	margin: 0 0 40px 0;
+}
