@@ -14,3 +14,90 @@
 	border-radius: var(--radius);
 	border: 2px solid rgba(128, 128, 128, 0.5);
 }
+
+.form__files {
+	position: relative;
+	display: flex;
+}
+
+#newPhotos {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 127px;
+	height: 100%;
+	margin: 0;
+	opacity: 0.00001;
+	cursor: pointer;
+}
+
+.form__file {
+	background-color: gray;
+	border: 1px solid gray;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 18px;
+	outline: none;
+	padding: 10px;
+	transition: all 0.3s ease;
+}
+
+.form__photos {
+	height: 390px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	overflow-y: scroll;
+}
+
+.form__wrapper {
+	position: relative;
+	aspect-ratio: 1 / 1;
+}
+
+.form__wrapper:hover::before,
+.form__wrapper:hover .form__remove {
+	opacity: 1;
+}
+
+.form__wrapper::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: var(--radius);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 2;
+}
+
+.form__remove {
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 8px 10px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 3;
+}
+
+.form__remove:focus {
+	opacity: 1;
+}
+
+.form__photo {
+	display: block;
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 1 / 1;
+	object-fit: cover;
+	border-radius: var(--radius);
+}
