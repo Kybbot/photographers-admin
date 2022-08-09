@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Modal } from "../components/Modal";
+import { Modal, NewAlbumForm } from "../components";
 import { useModal } from "../hooks/useModal";
 
 const Albums: React.FC = () => {
@@ -12,19 +12,24 @@ const Albums: React.FC = () => {
 
 	return (
 		<>
-			<Modal ref={modalRef} active={isActive} closeModal={closeModal} title="Photo settings">
-				<h2>Test</h2>
+			<Modal ref={modalRef} active={isActive} closeModal={closeModal} title="Add new album">
+				<NewAlbumForm />
 			</Modal>
-			<button ref={openBtnRef} onClick={openModal}>
-				active
-			</button>
 			<section className="albums" aria-labelledby="albumsSectionTitle">
 				<h1 className="albums__title" id="albumsSectionTitle">
 					Albums Catalog
 				</h1>
 				<div className="albums__grid">
 					<article className="albums__article">
-						<button className="albums__new">+</button>
+						<button
+							ref={openBtnRef}
+							type="button"
+							className="albums__new"
+							onClick={openModal}
+							aria-label="Add new album"
+						>
+							+
+						</button>
 						<div className="albums__controls">
 							<p className="albums__name">Add new album</p>
 						</div>
