@@ -1,19 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Modal, NewPhotosForm } from "../components";
+import { EditPhotoForm, Modal, NewPhotosForm } from "../components";
 import { useModal } from "../hooks/useModal";
+import { currentPhotoType } from "../@types/albums";
 
 const Album: React.FC = () => {
-	const modalRef = React.createRef<HTMLDivElement>();
-	const openBtnRef = React.useRef<HTMLButtonElement>(null);
+	const modalRef1 = React.createRef<HTMLDivElement>();
+	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
-	const { isActive, openModal, closeModal } = useModal(modalRef, openBtnRef);
+	const modalRef2 = React.createRef<HTMLDivElement>();
+	const openBtnRef2 = React.useRef<HTMLButtonElement>(null);
+
+	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal(modalRef1, openBtnRef1);
+	const { isActive: isActive2, openModal: openModal2, closeModal: closeModal2 } = useModal(modalRef2, openBtnRef2);
+
+	const [currentPhoto, setCurrentPhoto] = React.useState<currentPhotoType | null>(null);
+
+	const openCurrentAlbum = () => {
+		setCurrentPhoto({
+			name: "Name",
+			location: "Location",
+			people: "David, Monika",
+		});
+		openModal2();
+	};
 
 	return (
 		<>
-			<Modal ref={modalRef} active={isActive} closeModal={closeModal} title="Add new photos">
+			<Modal ref={modalRef1} active={isActive1} closeModal={closeModal1} title="Add new photos">
 				<NewPhotosForm />
+			</Modal>
+			<Modal ref={modalRef2} active={isActive2} closeModal={closeModal2} title="Photo settings">
+				{currentPhoto && <EditPhotoForm data={currentPhoto} />}
 			</Modal>
 			<section className="album" aria-labelledby="albumSectionTitle">
 				<div className="album__container">
@@ -27,10 +46,10 @@ const Album: React.FC = () => {
 				<div className="album__grid">
 					<article className="album__article">
 						<button
-							ref={openBtnRef}
+							ref={openBtnRef1}
 							type="button"
 							className="album__new"
-							onClick={openModal}
+							onClick={openModal1}
 							aria-label="Add new photos"
 						>
 							+
@@ -50,7 +69,13 @@ const Album: React.FC = () => {
 						</div>
 						<div className="album__controls">
 							<p className="album__name">Name</p>
-							<button className="album__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button
+								className="album__setting"
+								type="button"
+								aria-label="Photo settings"
+								title="Photo settings"
+								onClick={openCurrentAlbum}
+							>
 								<svg
 									focusable="false"
 									aria-hidden="true"

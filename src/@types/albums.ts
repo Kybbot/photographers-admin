@@ -11,3 +11,17 @@ export type EditAlbumFormProps = {
 		date: string;
 	};
 };
+
+export type currentPhotoType = {
+	name: string;
+	location: string;
+	people: string;
+};
+
+export type EditPhotoFormProps = {
+	data: {
+		name: string;
+		location: string;
+		people: string;
+	};
+};
