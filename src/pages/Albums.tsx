@@ -31,7 +31,7 @@ const Albums: React.FC = () => {
 			<Modal ref={modalRef1} active={isActive1} closeModal={closeModal1} title="Add new album">
 				<NewAlbumForm />
 			</Modal>
-			<Modal ref={modalRef2} active={isActive2} closeModal={closeModal2} title="Add new album">
+			<Modal ref={modalRef2} active={isActive2} closeModal={closeModal2} title="Album settings">
 				{currentAlbum && <EditAlbumForm data={currentAlbum} />}
 			</Modal>
 			<section className="albums" aria-labelledby="albumsSectionTitle">
@@ -69,8 +69,8 @@ const Albums: React.FC = () => {
 							<button
 								className="albums__setting"
 								type="button"
-								aria-label="Photo settings"
-								title="Photo settings"
+								aria-label="Album settings"
+								title="Album settings"
 								onClick={openCurrentAlbum}
 							>
 								<svg
@@ -102,7 +102,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -132,7 +132,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -162,7 +162,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -192,7 +192,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -222,7 +222,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -252,7 +252,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -282,7 +282,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -312,7 +312,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -342,7 +342,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -372,7 +372,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -402,7 +402,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -432,7 +432,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -462,7 +462,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
@@ -492,7 +492,7 @@ const Albums: React.FC = () => {
 							<Link className="albums__link" to="/album/1">
 								Name
 							</Link>
-							<button className="albums__setting" type="button" aria-label="Photo settings" title="Photo settings">
+							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
 								<svg
 									focusable="false"
 									aria-hidden="true"
