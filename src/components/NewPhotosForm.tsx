@@ -24,7 +24,7 @@ export const NewPhotosForm = () => {
 	};
 
 	return (
-		<form className="form" onSubmit={fromHandler}>
+		<form className="form" onSubmit={fromHandler} encType="multipart/form-data">
 			<div className="form__files">
 				<input type="file" accept=".png,.jpg,.webp" multiple id="newPhotos" name="newPhotos" onChange={filesHandler} />
 				<label htmlFor="newPhotos" className="btn">
