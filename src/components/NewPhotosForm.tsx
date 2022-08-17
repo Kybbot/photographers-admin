@@ -1,19 +1,19 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
 export const NewPhotosForm = () => {
-	const [files, setFiles] = React.useState<FileList | File[] | []>();
+	const [files, setFiles] = React.useState<File[] | []>([]);
 
 	const filesHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files) {
-			setFiles(event.target.files);
+			const files = Array.from(event.target.files);
+
+			setFiles((prev) => [...prev, ...files]);
 		}
 	};
 
 	const removeFile = (name: string) => {
 		setFiles((prev) => {
-			if (prev) {
-				return Array.from(prev).filter((item) => item.name !== name);
-			}
+			return Array.from(prev).filter((item) => item.name !== name);
 		});
 	};
 
