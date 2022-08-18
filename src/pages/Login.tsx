@@ -27,7 +27,7 @@ const Login: React.FC = () => {
 		const response = await fetch("https://splastun2.node.shpp.me/api/login", {
 			method: "POST",
 			headers: {
-				"content-type": "application/json;charset=UTF-8",
+				"content-type": "application/json",
 			},
 			body: JSON.stringify(formState),
 		});
