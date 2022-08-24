@@ -30,14 +30,14 @@ const createTokenProvider = () => {
 		}
 
 		if (isExpired(getExpirationDate(_token.accessToken))) {
-			return null;
+			setToken(null);
 		}
 
 		return _token && _token.accessToken;
 	};
 
 	const isLoggedIn = () => {
-		return !!_token;
+		return !!getToken();
 	};
 
 	const observers: Array<observerType> = [];
