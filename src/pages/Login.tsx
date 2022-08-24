@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
 import { useAuthContext } from "../context/AuthContext";
-import InfoMessage from "../components/InfoMessage";
+import { InfoMessage } from "../components";
 import { loginResponse } from "../@types/api";
 
 const Login: React.FC = () => {
