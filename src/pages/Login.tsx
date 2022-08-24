@@ -1,6 +1,8 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
 import { useAuthContext } from "../context/AuthContext";
+import InfoMessage from "../components/InfoMessage";
+import { loginResponse } from "../@types/api";
 
 const Login: React.FC = () => {
 	const { saveToken } = useAuthContext();
@@ -9,8 +11,12 @@ const Login: React.FC = () => {
 		login: "",
 		password: "",
 	});
+	const [loading, setLoading] = React.useState(false);
+	const [error, setError] = React.useState<string | null>(null);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setError(null);
+
 		const { name, value } = event.target;
 
 		setFormState((prev) => ({
@@ -22,31 +28,34 @@ const Login: React.FC = () => {
 	const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		// saveToken({ accessToken: "token" });
+		setLoading(true);
 
-		const response = await fetch("https://splastun2.node.shpp.me/api/login", {
-			method: "POST",
-			headers: {
-				"content-type": "application/json",
-			},
-			body: JSON.stringify(formState),
-		});
+		try {
+			const response = await fetch("https://splastun2.node.shpp.me/api/login", {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify(formState),
+			});
 
-		console.log(response);
+			const data = (await response.json()) as loginResponse;
 
-		type dataType = {
-			token: string;
-			user: {
-				person_id: number;
-				login: string;
-				fullname: string;
-				email: string;
-			};
-		};
+			if ((!response.ok && data.message) || (response.status === 404 && data.message)) {
+				throw new Error(data.message);
+			}
 
-		const data = (await response.json()) as dataType;
+			if (response.ok && response.status === 200 && data.token) {
+				saveToken({ accessToken: data.token });
+			}
 
-		console.log(data);
+			setLoading(false);
+		} catch (error) {
+			setLoading(false);
+			if (error instanceof Error) {
+				setError(error.message);
+			}
+		}
 	};
 
 	return (
@@ -85,6 +94,8 @@ const Login: React.FC = () => {
 						Login
 					</button>
 				</form>
+				{loading ? <InfoMessage type="loading" message="Loading" /> : null}
+				{error ? <InfoMessage type="error" message={error} /> : null}
 			</div>
 		</section>
 	);
