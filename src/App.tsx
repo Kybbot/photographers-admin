@@ -3,8 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import { useAuthContext } from "./context/AuthContext";
 
 import MainLayout from "./layouts/MainLayout";
-import Album from "./pages/Album";
-import Albums from "./pages/Albums";
+import Album from "./pages/Album/Album";
+import Albums from "./pages/Albums/Albums";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 

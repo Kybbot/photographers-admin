@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { EditAlbumForm, Modal, NewAlbumForm, InfoMessage } from "../components";
-import { useModal } from "../hooks/useModal";
-import { useAuthFetch } from "../hooks/useAuthFetch";
-import { gradients } from "../constants/gradients";
-import { currentAlbumType } from "../@types/albums";
-import { createdAlbum, getAllAlbumsResponse } from "../@types/api";
-import { getRandomNumber } from "../utils/getRandomNumber";
+import { NewAlbumForm } from "./components/NewAlbumForm";
+import { EditAlbumForm } from "./components/EditAlbumForm";
+import { Modal, InfoMessage } from "../../components";
+import { useModal } from "../../hooks/useModal";
+import { useAuthFetch } from "../../hooks/useAuthFetch";
+import { gradients } from "../../constants/gradients";
+import { currentAlbumType } from "../../@types/albums";
+import { createdAlbum, getAllAlbumsResponse } from "../../@types/api";
+import { getRandomNumber } from "../../utils/getRandomNumber";
 
 const Albums: React.FC = () => {
 	const { loading, error, request } = useAuthFetch();

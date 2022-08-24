@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
-import { EditPhotoFormProps } from "../@types/albums";
+import { EditPhotoFormProps } from "../../../@types/albums";
 
 export const EditPhotoForm: React.FC<EditPhotoFormProps> = ({ data }) => {
 	const [formState, setFormState] = React.useState(data);

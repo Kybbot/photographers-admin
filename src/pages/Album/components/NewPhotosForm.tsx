@@ -49,5 +49,3 @@ export const NewPhotosForm = () => {
 		</form>
 	);
 };
-
-export default NewPhotosForm;

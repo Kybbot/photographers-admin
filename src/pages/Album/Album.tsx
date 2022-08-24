@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { EditPhotoForm, Modal, NewPhotosForm } from "../components";
-import { useModal } from "../hooks/useModal";
-import { currentPhotoType } from "../@types/albums";
+import { NewPhotosForm } from "./components/NewPhotosForm";
+import { EditPhotoForm } from "./components/EditPhotoForm";
+import { Modal } from "../../components";
+import { useModal } from "../../hooks/useModal";
+import { currentPhotoType } from "../../@types/albums";
 
 const Album: React.FC = () => {
 	const modalRef1 = React.createRef<HTMLDivElement>();
