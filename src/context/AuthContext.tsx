@@ -14,7 +14,7 @@ type AuthProviderType = {
 	children: React.ReactNode;
 };
 
-const AuthContext = React.createContext<AuthContextType | null>(null);
+const AuthContext = React.createContext<Partial<AuthContextType>>({});
 
 export const useAuthContext = () => {
 	return React.useContext(AuthContext) as AuthContextType;
