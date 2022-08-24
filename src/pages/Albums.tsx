@@ -1,11 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { EditAlbumForm, Modal, NewAlbumForm } from "../components";
+import { EditAlbumForm, Modal, NewAlbumForm, InfoMessage } from "../components";
 import { useModal } from "../hooks/useModal";
+import { useAuthFetch } from "../hooks/useAuthFetch";
+import { gradients } from "../constants/gradients";
 import { currentAlbumType } from "../@types/albums";
+import { createdAlbum, getAllAlbumsResponse } from "../@types/api";
+import { getRandomNumber } from "../utils/getRandomNumber";
 
 const Albums: React.FC = () => {
+	const { loading, error, request } = useAuthFetch();
+
+	const [result, setResult] = React.useState<getAllAlbumsResponse>([]);
+
 	const modalRef1 = React.createRef<HTMLDivElement>();
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
@@ -17,17 +25,39 @@ const Albums: React.FC = () => {
 
 	const [currentAlbum, setCurrentAlbum] = React.useState<currentAlbumType | null>(null);
 
-	const openCurrentAlbum = () => {
+	const openCurrentAlbum = (album: createdAlbum) => {
 		setCurrentAlbum({
-			name: "Name",
-			location: "Location",
-			date: "2022/08/01",
+			name: album.album_name,
+			location: album.album_location,
+			date: album.date.split("T")[0],
 		});
 		openModal2();
 	};
 
+	React.useEffect(() => {
+		const getAlbums = async () => {
+			const data = await request<getAllAlbumsResponse>("https://splastun2.node.shpp.me/api/albums", "GET");
+
+			if (data) {
+				setResult(data);
+			}
+		};
+
+		void getAlbums();
+	}, [request]);
+
+	if (loading) {
+		return <InfoMessage type="loading" message="Loading" />;
+	}
+
+	if (error) {
+		return <InfoMessage type="error" message={error} />;
+	}
+
 	return (
 		<>
+			<p>{loading ? "loading" : ""}</p>
+			<p>{error ? error : ""}</p>
 			<Modal ref={modalRef1} active={isActive1} closeModal={closeModal1} title="Add new album">
 				<NewAlbumForm />
 			</Modal>
@@ -54,462 +84,51 @@ const Albums: React.FC = () => {
 						</div>
 						<p className="albums__location">Site</p>
 					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659613550771-7175d4fdbb8a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDJ8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button
-								className="albums__setting"
-								type="button"
-								aria-label="Album settings"
-								title="Album settings"
-								onClick={openCurrentAlbum}
-							>
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659574087501-92ef4aa7b2d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDN8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659204994421-defa6dca745c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDZ8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659439927054-665e92d46745?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDh8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659506888003-e494898cffd0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDV8NnNNVmpUTFNrZVF8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1656800774791-2bd8cee4fdfd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDEyfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659636688047-65f34ef54da7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE0fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659456950148-d1754f4cc94c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE4fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659464113425-715dcce997d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE5fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659342405102-c2343c09c4fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI0fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1657401587002-b1b97c2ec2ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIxfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659183572769-a22124c4c97e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI3fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659347257477-c965ea8aff9d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI1fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1659205079474-4b5904ee53ef?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDI2fDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
-					<article className="albums__article">
-						<div className="albums__wrapper">
-							<img
-								className="albums__img"
-								src="https://images.unsplash.com/photo-1658847412035-2ae0d3d5c364?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDYwfDZzTVZqVExTa2VRfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-								alt=""
-							/>
-						</div>
-						<div className="albums__controls">
-							<Link className="albums__link" to="/album/1">
-								Name
-							</Link>
-							<button className="albums__setting" type="button" aria-label="Album settings" title="Album settings">
-								<svg
-									focusable="false"
-									aria-hidden="true"
-									fill="none"
-									width="16"
-									height="16"
-									stroke="#000000"
-									strokeWidth="2"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								>
-									<use xlinkHref="#settings" />
-								</svg>
-							</button>
-						</div>
-						<p className="albums__location">Locaton</p>
-					</article>
+					{result &&
+						result.length > 0 &&
+						result.map((item) => (
+							<article className="albums__article" key={item.album_id}>
+								<div className="albums__wrapper">
+									<img
+										className="albums__img"
+										style={{ backgroundImage: gradients[getRandomNumber(0, gradients.length - 1)] }}
+										src={
+											item.album_logo
+												? item.album_logo
+												: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+										}
+										alt={item.album_name}
+									/>
+								</div>
+								<div className="albums__controls">
+									<Link className="albums__link" to={`/album/${item.album_name}`}>
+										{item.album_name}
+									</Link>
+									<button
+										className="albums__setting"
+										type="button"
+										aria-label="Album settings"
+										title="Album settings"
+										onClick={() => openCurrentAlbum(item)}
+									>
+										<svg
+											focusable="false"
+											aria-hidden="true"
+											fill="none"
+											width="16"
+											height="16"
+											stroke="#000000"
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										>
+											<use xlinkHref="#settings" />
+										</svg>
+									</button>
+								</div>
+								<p className="albums__location">{item.album_location}</p>
+							</article>
+						))}
 				</div>
 			</section>
 		</>
