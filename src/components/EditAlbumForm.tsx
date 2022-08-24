@@ -1,10 +1,14 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
-import { EditAlbumFormProps } from "../@types/albums";
+type EditAlbumFormProps = {
+	data: {
+		name: string;
+		location: string;
+		date: string;
+	};
+};
 
 export const EditAlbumForm: React.FC<EditAlbumFormProps> = ({ data }) => {
-	console.log(data);
-
 	const [formState, setFormState] = React.useState(data);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {

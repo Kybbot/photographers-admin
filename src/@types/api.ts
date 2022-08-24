@@ -12,16 +12,16 @@ export type loginResponse = {
 export type newAlbum = {
 	album_name: string;
 	album_location: string;
-	date: Date;
+	date: string;
 };
 
-type createdAlbum = {
+export type createdAlbum = {
 	album_id: number;
 	album_name: string;
 	album_location: string;
 	album_logo: string | null;
 	person_id: number;
-	date: Date;
+	date: string;
 };
 
 export type getAlbumResponse = createdAlbum;
