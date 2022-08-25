@@ -7,15 +7,21 @@ type ModalProps = {
 	children: React.ReactNode;
 };
 
-type Ref = HTMLDivElement;
+export const Modal: React.FC<ModalProps> = ({ title, active, closeModal, children }) => {
+	const closeBtnRef = React.useRef<HTMLButtonElement>(null);
 
-export const Modal = React.forwardRef<Ref, ModalProps>(({ title, active, closeModal, children }, ref) => {
+	React.useEffect(() => {
+		if (active) {
+			closeBtnRef.current?.focus();
+		}
+	}, [active]);
+
 	return (
 		<div aria-hidden={!active} className={`modal ${active ? "modal--visible" : ""}`}>
-			<div ref={ref} className="modal__content" role="dialog" aria-modal="true" aria-label="Modal window">
+			<div className="modal__content" role="dialog" aria-modal="true" aria-label="Modal window">
 				<div className="modal__header">
 					<h2 className="modal__titel">{title}</h2>
-					<button className="btn modal__btn" onClick={closeModal}>
+					<button ref={closeBtnRef} className="btn modal__btn" onClick={closeModal}>
 						Close
 					</button>
 				</div>
@@ -23,5 +29,5 @@ export const Modal = React.forwardRef<Ref, ModalProps>(({ title, active, closeMo
 			</div>
 		</div>
 	);
-});
+};
 Modal.displayName = "Modal";
