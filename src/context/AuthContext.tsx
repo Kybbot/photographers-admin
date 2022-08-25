@@ -1,7 +1,7 @@
 import React from "react";
 
+import { useCreateAuthProvider } from "../services/jwt";
 import { LocalStorageTokenType } from "../@types/jwt";
-import { createAuthProvider } from "../services/jwt";
 
 export type AuthContextType = {
 	authFetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
@@ -21,7 +21,7 @@ export const useAuthContext = () => {
 };
 
 export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
-	const { useAuth, authFetch, saveToken, deleteToken } = createAuthProvider();
+	const { authFetch, saveToken, deleteToken, useAuth } = useCreateAuthProvider();
 
 	const isLoggedIn = useAuth();
 
@@ -31,6 +31,8 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
 		deleteToken,
 		isLoggedIn,
 	};
+
+	console.log("Context");
 
 	return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
