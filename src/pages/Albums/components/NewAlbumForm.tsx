@@ -1,27 +1,46 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
-export const NewAlbumForm = () => {
+import { InfoMessage } from "../../../components";
+import { useAuthFetch } from "../../../hooks/useAuthFetch";
+
+export const NewAlbumForm: React.FC = React.memo(() => {
+	const { loading, error, request } = useAuthFetch();
+
 	const initialState = {
-		newName: "",
-		newLocation: "",
-		newDate: "",
+		album_name: "",
+		album_location: "",
+		date: "",
 	};
 
 	const [formState, setFormState] = React.useState(initialState);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
+
 		setFormState((prev) => ({
 			...prev,
 			[name]: value,
 		}));
 	};
 
-	const fromHandler = (event: FormEvent<HTMLFormElement>) => {
+	const fromHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(formState);
+		const date = new Date(formState.date).valueOf();
+
+		const body = JSON.stringify({
+			album_name: formState.album_name,
+			album_location: formState.album_location,
+			date,
+		});
+
+		const data = await request("https://splastun2.node.shpp.me/api/album", "POST", body);
+
+		console.log(data);
+
 		setFormState(initialState);
 	};
+
+	console.log("NewAlbumForm");
 
 	return (
 		<form className="form" onSubmit={fromHandler}>
@@ -31,8 +50,9 @@ export const NewAlbumForm = () => {
 					className="form__input"
 					type="text"
 					id="newName"
-					name="newName"
-					value={formState.newName}
+					name="album_name"
+					required
+					value={formState.album_name}
 					onChange={inputHandler}
 				/>
 			</label>
@@ -42,8 +62,9 @@ export const NewAlbumForm = () => {
 					className="form__input"
 					type="text"
 					id="newLocation"
-					name="newLocation"
-					value={formState.newLocation}
+					name="album_location"
+					required
+					value={formState.album_location}
 					onChange={inputHandler}
 				/>
 			</label>
@@ -53,14 +74,19 @@ export const NewAlbumForm = () => {
 					className="form__input"
 					type="date"
 					id="newDate"
-					name="newDate"
-					value={formState.newDate}
+					name="date"
+					required
+					value={formState.date}
 					onChange={inputHandler}
 				/>
 			</label>
 			<button type="submit" className="btn">
 				Save
 			</button>
+			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
+			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
-};
+});
+
+NewAlbumForm.displayName = "NewAlbumForm";
