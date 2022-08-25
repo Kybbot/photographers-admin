@@ -100,3 +100,12 @@
 	object-fit: cover;
 	border-radius: var(--radius);
 }
+
+.form__btns {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	margin: 0;
+	padding: 0;
+	border-style: none;
+}

@@ -6,9 +6,10 @@
 	--main-bg: #ffffff;
 
 	--text-color: #1a1919;
-	--accent-color: #c409d1;
+	--accent-color: #00b9f1;
+	--red-color: #e53a40;
 
-	--radius: 12px;
+	--radius: 18px;
 }
 
 html {
