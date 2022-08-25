@@ -8,14 +8,10 @@ import { useModal } from "../../hooks/useModal";
 import { currentPhotoType } from "../../@types/albums";
 
 const Album: React.FC = () => {
-	const modalRef1 = React.createRef<HTMLDivElement>();
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
-	const modalRef2 = React.createRef<HTMLDivElement>();
-	const openBtnRef2 = React.useRef<HTMLButtonElement>(null);
-
-	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal(modalRef1, openBtnRef1);
-	const { isActive: isActive2, openModal: openModal2, closeModal: closeModal2 } = useModal(modalRef2, openBtnRef2);
+	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal(openBtnRef1);
+	const { isActive: isActive2, openModal: openModal2, closeModal: closeModal2 } = useModal();
 
 	const [currentPhoto, setCurrentPhoto] = React.useState<currentPhotoType | null>(null);
 
@@ -30,10 +26,10 @@ const Album: React.FC = () => {
 
 	return (
 		<>
-			<Modal ref={modalRef1} active={isActive1} closeModal={closeModal1} title="Add new photos">
+			<Modal active={isActive1} closeModal={closeModal1} title="Add new photos">
 				<NewPhotosForm />
 			</Modal>
-			<Modal ref={modalRef2} active={isActive2} closeModal={closeModal2} title="Photo settings">
+			<Modal active={isActive2} closeModal={closeModal2} title="Photo settings">
 				{currentPhoto && <EditPhotoForm data={currentPhoto} />}
 			</Modal>
 			<section className="album" aria-labelledby="albumSectionTitle">
