@@ -8,7 +8,7 @@ type EditAlbumFormProps = {
 	};
 };
 
-export const EditAlbumForm: React.FC<EditAlbumFormProps> = ({ data }) => {
+export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }: EditAlbumFormProps) => {
 	const [formState, setFormState] = React.useState(data);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +23,12 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = ({ data }) => {
 		event.preventDefault();
 		console.log(formState);
 	};
+
+	React.useEffect(() => {
+		setFormState(data);
+	}, [data]);
+
+	console.log("EditAlbumForm");
 
 	return (
 		<form className="form" onSubmit={fromHandler}>
@@ -59,9 +65,16 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = ({ data }) => {
 					onChange={inputHandler}
 				/>
 			</label>
-			<button type="submit" className="btn">
-				Save
-			</button>
+			<fieldset className="form__btns">
+				<button type="submit" className="btn">
+					Update
+				</button>
+				<button type="button" className="btn btn--delete">
+					Delete
+				</button>
+			</fieldset>
 		</form>
 	);
-};
+});
+
+EditAlbumForm.displayName = "EditAlbumForm";
