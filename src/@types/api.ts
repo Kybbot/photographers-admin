@@ -9,13 +9,7 @@ export type loginResponse = {
 	message?: string;
 };
 
-export type newAlbum = {
-	album_name: string;
-	album_location: string;
-	date: string;
-};
-
-export type createdAlbum = {
+export type AlbumType = {
 	album_id: number;
 	album_name: string;
 	album_location: string;
@@ -24,5 +18,10 @@ export type createdAlbum = {
 	date: string;
 };
 
-export type getAlbumResponse = createdAlbum;
-export type getAllAlbumsResponse = createdAlbum[];
+export type PhotoType = {
+	photo_id: number;
+	photo_logo: string;
+	photo_name: string;
+	photo_url: string;
+	album_id: number;
+};
