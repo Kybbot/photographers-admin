@@ -1,14 +1,22 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
+import { InfoMessage } from "../../../components";
+
+import { useAuthFetch } from "../../../hooks/useAuthFetch";
+import { removeAlbum } from "../../../redux/reducers/albumsSlice";
+import { useAppDispatch } from "../../../redux/store";
+
+import { AlbumType } from "../../../@types/api";
+
 type EditAlbumFormProps = {
-	data: {
-		name: string;
-		location: string;
-		date: string;
-	};
+	data: AlbumType;
 };
 
 export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }: EditAlbumFormProps) => {
+	const { loading, error, request } = useAuthFetch();
+
+	const dispatch = useAppDispatch();
+
 	const [formState, setFormState] = React.useState(data);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +27,28 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 		}));
 	};
 
-	const fromHandler = (event: FormEvent<HTMLFormElement>) => {
+	const deleteBtnHandler = async () => {
+		const result = await request<"ok">(`https://splastun2.node.shpp.me/api/album/${data.album_id}`, "DELETE");
+
+		if (result) {
+			dispatch(removeAlbum(data.album_id));
+		}
+	};
+
+	const fromHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(formState);
+		const date = new Date(formState.date).valueOf();
+
+		const body = JSON.stringify({
+			album_id: formState.album_id,
+			album_name: formState.album_name,
+			album_location: formState.album_location,
+			date,
+		});
+
+		const result = await request("https://splastun2.node.shpp.me/api/album", "PUT", body);
+
+		console.log(result);
 	};
 
 	React.useEffect(() => {
@@ -38,8 +65,8 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 					className="form__input"
 					type="text"
 					id="name"
-					name="name"
-					value={formState.name}
+					name="album_name"
+					value={formState.album_name}
 					onChange={inputHandler}
 				/>
 			</label>
@@ -49,8 +76,8 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 					className="form__input"
 					type="text"
 					id="location"
-					name="location"
-					value={formState.location}
+					name="album_location"
+					value={formState.album_location}
 					onChange={inputHandler}
 				/>
 			</label>
@@ -69,10 +96,12 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 				<button type="submit" className="btn">
 					Update
 				</button>
-				<button type="button" className="btn btn--delete">
+				<button type="button" className="btn btn--delete" onClick={deleteBtnHandler}>
 					Delete
 				</button>
 			</fieldset>
+			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
+			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
 });
