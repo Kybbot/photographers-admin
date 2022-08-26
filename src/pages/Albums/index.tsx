@@ -1,34 +1,38 @@
 import React from "react";
 
+import { useAuthContext } from "../../context/AuthContext";
+
+import { Modal, InfoMessage } from "../../components";
 import { NewAlbumForm } from "./components/NewAlbumForm";
 import { EditAlbumForm } from "./components/EditAlbumForm";
-import { Modal, InfoMessage } from "../../components";
+import { AlbumItem } from "./components/AlbumItem";
+
 import { useModal } from "../../hooks/useModal";
 import { useAuthFetch } from "../../hooks/useAuthFetch";
-import { currentAlbumType } from "../../@types/albums";
-import { createdAlbum, getAllAlbumsResponse } from "../../@types/api";
-import { useAuthContext } from "../../context/AuthContext";
-import { AlbumItem } from "./components/AlbumItem";
+import { setAllAlbums } from "../../redux/reducers/albumsSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+
+import { AlbumType } from "../../@types/api";
 // import { Popup } from "../../components/Popup";
 
 const Albums: React.FC = () => {
 	const { deleteToken } = useAuthContext();
 	const { loading, error, request } = useAuthFetch();
 
-	const [result, setResult] = React.useState<getAllAlbumsResponse>([]);
+	const dispatch = useAppDispatch();
+	const albumsArr = useAppSelector((state) => state.albums);
 
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
 	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal(openBtnRef1);
 	const { isActive: isActive2, openModal: openModal2, closeModal: closeModal2 } = useModal();
 
-	const [currentAlbum, setCurrentAlbum] = React.useState<currentAlbumType | null>(null);
+	const [currentAlbum, setCurrentAlbum] = React.useState<AlbumType | null>(null);
 
 	const openCurrentAlbum = React.useCallback(
-		(album: createdAlbum) => {
+		(album: AlbumType) => {
 			setCurrentAlbum({
-				name: album.album_name,
-				location: album.album_location,
+				...album,
 				date: album.date.split("T")[0],
 			});
 			openModal2();
@@ -38,15 +42,17 @@ const Albums: React.FC = () => {
 
 	React.useEffect(() => {
 		const getAlbums = async () => {
-			const data = await request<getAllAlbumsResponse>("https://splastun2.node.shpp.me/api/albums", "GET");
+			const data = await request<AlbumType[]>("https://splastun2.node.shpp.me/api/albums", "GET");
 
 			if (data) {
-				setResult(data);
+				dispatch(setAllAlbums(data));
 			}
 		};
 
-		void getAlbums();
-	}, [request]);
+		if (!albumsArr.length) {
+			void getAlbums();
+		}
+	}, [request, dispatch, albumsArr]);
 
 	if (loading) {
 		return <InfoMessage type="loading" message="Loading" />;
@@ -72,34 +78,34 @@ const Albums: React.FC = () => {
 			<Modal active={isActive2} closeModal={closeModal2} title="Album settings">
 				{currentAlbum && <EditAlbumForm data={currentAlbum} />}
 			</Modal>
-			<section className="albums" aria-labelledby="albumsSectionTitle">
-				<div className="albums__container">
-					<h1 className="albums__title" id="albumsSectionTitle">
+			<section className="section" aria-labelledby="albumsSectionTitle">
+				<div className="section__container">
+					<h1 className="section__title" id="albumsSectionTitle">
 						Albums Catalog
 					</h1>
-					<button onClick={deleteToken} type="button" className="btn albums__btn">
+					<button onClick={deleteToken} type="button" className="btn section__btn">
 						Logout
 					</button>
 				</div>
-				<div className="albums__grid">
-					<article className="albums__article">
+				<div className="section__grid">
+					<article className="section__article">
 						<button
 							ref={openBtnRef1}
 							type="button"
-							className="albums__new"
+							className="section__new"
 							onClick={openModal1}
 							aria-label="Add new album"
 						>
 							+
 						</button>
-						<div className="albums__controls">
-							<p className="albums__name">Add new album</p>
+						<div className="section__controls">
+							<p className="section__name">Add new album</p>
 						</div>
-						<p className="albums__location">Site</p>
+						<p className="section__location">Site</p>
 					</article>
-					{result &&
-						result.length > 0 &&
-						result.map((item) => <AlbumItem key={item.album_id} data={item} openCurrentAlbum={openCurrentAlbum} />)}
+					{albumsArr &&
+						albumsArr.length > 0 &&
+						albumsArr.map((item) => <AlbumItem key={item.album_id} data={item} openCurrentAlbum={openCurrentAlbum} />)}
 				</div>
 			</section>
 		</>
