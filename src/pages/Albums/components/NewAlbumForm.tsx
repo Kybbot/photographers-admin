@@ -1,10 +1,17 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
 import { InfoMessage } from "../../../components";
+
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
+import { addNewAlbum } from "../../../redux/reducers/albumsSlice";
+import { useAppDispatch } from "../../../redux/store";
+
+import { AlbumType } from "../../../@types/api";
 
 export const NewAlbumForm: React.FC = React.memo(() => {
 	const { loading, error, request } = useAuthFetch();
+
+	const dispatch = useAppDispatch();
 
 	const initialState = {
 		album_name: "",
@@ -33,9 +40,11 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 			date,
 		});
 
-		const data = await request("https://splastun2.node.shpp.me/api/album", "POST", body);
+		const data = await request<[AlbumType]>("https://splastun2.node.shpp.me/api/album", "POST", body);
 
-		console.log(data);
+		if (data) {
+			dispatch(addNewAlbum(data[0]));
+		}
 
 		setFormState(initialState);
 	};
