@@ -1,23 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getRandomNumber } from "../../../utils/getRandomNumber";
 import { gradients } from "../../../constants/gradients";
-import { createdAlbum } from "../../../@types/api";
+import { getRandomNumber } from "../../../utils/getRandomNumber";
+
+import { AlbumType } from "../../../@types/api";
 
 type AlbumItemProps = {
-	data: createdAlbum;
-	openCurrentAlbum: (album: createdAlbum) => void;
+	data: AlbumType;
+	openCurrentAlbum: (album: AlbumType) => void;
 };
 
 export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurrentAlbum }: AlbumItemProps) => {
 	console.log("AlbumItem");
 
 	return (
-		<article className="albums__article">
-			<div className="albums__wrapper">
+		<article className="section__article">
+			<div className="section__wrapper">
 				<img
-					className="albums__img"
+					className="section__img"
 					style={{ backgroundImage: gradients[getRandomNumber(0, gradients.length - 1)] }}
 					src={
 						data.album_logo
@@ -27,12 +28,18 @@ export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurre
 					alt={data.album_name}
 				/>
 			</div>
-			<div className="albums__controls">
-				<Link className="albums__link" to={`/album/${data.album_name}`}>
+			<div className="section__controls">
+				<Link
+					className="section__link"
+					to={`/album/${data.album_id}`}
+					state={{
+						albumId: data.album_id,
+					}}
+				>
 					{data.album_name}
 				</Link>
 				<button
-					className="albums__setting"
+					className="section__setting"
 					type="button"
 					aria-label="Album settings"
 					title="Album settings"
@@ -53,7 +60,7 @@ export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurre
 					</svg>
 				</button>
 			</div>
-			<p className="albums__location">{data.album_location}</p>
+			<p className="section__location">{data.album_location}</p>
 		</article>
 	);
 });
