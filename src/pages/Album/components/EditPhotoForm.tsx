@@ -1,6 +1,10 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
-import { EditPhotoFormProps } from "../../../@types/albums";
+import { PhotoType } from "../../../@types/api";
+
+type EditPhotoFormProps = {
+	data: PhotoType;
+};
 
 export const EditPhotoForm: React.FC<EditPhotoFormProps> = ({ data }) => {
 	const [formState, setFormState] = React.useState(data);
@@ -27,35 +31,18 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = ({ data }) => {
 					type="text"
 					id="name"
 					name="name"
-					value={formState.name}
+					value={formState.photo_name}
 					onChange={inputHandler}
 				/>
 			</label>
-			<label htmlFor="location" className="form__label">
-				Location
-				<input
-					className="form__input"
-					type="text"
-					id="location"
-					name="location"
-					value={formState.location}
-					onChange={inputHandler}
-				/>
-			</label>
-			<label htmlFor="people" className="form__label">
-				People
-				<input
-					className="form__input"
-					type="text"
-					id="people"
-					name="people"
-					value={formState.people}
-					onChange={inputHandler}
-				/>
-			</label>
-			<button type="submit" className="btn">
-				Save
-			</button>
+			<fieldset className="form__btns">
+				<button type="submit" className="btn">
+					Update
+				</button>
+				<button type="button" className="btn btn--delete">
+					Delete
+				</button>
+			</fieldset>
 		</form>
 	);
 };
