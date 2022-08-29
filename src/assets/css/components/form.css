@@ -57,40 +57,13 @@
 	aspect-ratio: 1 / 1;
 }
 
-.form__wrapper:hover::before,
-.form__wrapper:hover .form__remove {
-	opacity: 1;
-}
-
-.form__wrapper::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	border-radius: var(--radius);
-	opacity: 0;
-	transition: opacity 0.3s ease;
-	z-index: 2;
-}
-
 .form__remove {
-	position: absolute;
-	bottom: 20px;
-	left: 50%;
-	transform: translateX(-50%);
+	width: 100%;
+	margin-top: 10px;
 	padding: 8px 10px;
-	opacity: 0;
 	transition: opacity 0.3s ease;
 	z-index: 3;
-}
-
-.form__remove:focus {
-	opacity: 1;
+	cursor: pointer;
 }
 
 .form__photo {

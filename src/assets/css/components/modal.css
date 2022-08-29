@@ -28,16 +28,23 @@
 }
 
 .modal__header {
+	margin-bottom: 40px;
+}
+
+.modal__wrapper {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	margin-bottom: 40px;
 }
 
 .modal__titel {
 	font-size: 32px;
 	margin: 0;
+}
+
+.modal__description {
+	margin: 10px 0 0 0;
 }
 
 .modal__btn {
