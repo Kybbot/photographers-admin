@@ -1,7 +1,17 @@
 import React, { ChangeEvent, FormEvent } from "react";
 
-export const NewPhotosForm = () => {
-	const [files, setFiles] = React.useState<File[] | []>([]);
+import { InfoMessage } from "../../../components";
+
+import { useAuthFetch } from "../../../hooks/useAuthFetch";
+
+type NewPhotosFormProps = {
+	albumId: number;
+};
+
+export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId }) => {
+	const { loading, error, request } = useAuthFetch();
+
+	const [files, setFiles] = React.useState<File[]>([]);
 
 	const filesHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files) {
@@ -12,21 +22,40 @@ export const NewPhotosForm = () => {
 	};
 
 	const removeFile = (name: string) => {
-		setFiles((prev) => {
-			return Array.from(prev).filter((item) => item.name !== name);
-		});
+		setFiles((prev) => Array.from(prev).filter((item) => item.name !== name));
 	};
 
-	const fromHandler = (event: FormEvent<HTMLFormElement>) => {
+	const fromHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log(files);
+
+		const formData = new FormData();
+		formData.append("album_id", String(albumId));
+		formData.append("Content-Type", "multipart/form-data");
+		for (let i = 0; i < files.length; i++) {
+			formData.append("file", files[i]);
+		}
+
+		for (let i = 0; i < files.length; i++) {
+			console.log(formData.get("file"));
+		}
+
+		const data = await request(
+			"https://splastun2.node.shpp.me/api/photos",
+			"POST",
+			formData,
+			{},
+			"multipart/form-data"
+		);
+
+		console.log(data);
+
 		setFiles([]);
 	};
 
 	return (
 		<form className="form" onSubmit={fromHandler} encType="multipart/form-data">
 			<div className="form__files">
-				<input type="file" accept=".png,.jpg,.webp" multiple id="newPhotos" name="newPhotos" onChange={filesHandler} />
+				<input id="newPhotos" type="file" name="file" accept=".png,.jpg,.jpeg,.webp" multiple onChange={filesHandler} />
 				<label htmlFor="newPhotos" className="btn">
 					Choose Photos
 				</label>
@@ -43,9 +72,11 @@ export const NewPhotosForm = () => {
 					  ))
 					: "No Photos"}
 			</div>
-			<button type="submit" className="btn">
-				Upload Photos
+			<button type="submit" className="btn" disabled={files.length > 10}>
+				{files.length > 10 ? "Too many files" : "Upload Photos"}
 			</button>
+			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
+			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
 };
