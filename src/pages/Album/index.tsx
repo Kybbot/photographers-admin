@@ -33,6 +33,23 @@ const Album: React.FC = () => {
 		[openModal2]
 	);
 
+	const updatePhoto = React.useCallback((photoId: number, newData: PhotoType) => {
+		setAlbumPhotos((prev) =>
+			prev.map((item) => {
+				if (item.photo_id !== photoId) return item;
+
+				return {
+					...item,
+					...newData,
+				};
+			})
+		);
+	}, []);
+
+	const deletePhoto = React.useCallback((photoId: number) => {
+		setAlbumPhotos((prev) => prev.filter((item) => item.photo_id !== photoId));
+	}, []);
+
 	React.useEffect(() => {
 		const albumId = pathname.split("/")[2];
 
@@ -68,44 +85,46 @@ const Album: React.FC = () => {
 
 	return (
 		<>
-			<Modal active={isActive1} closeModal={closeModal1} title="Add new photos">
-				<NewPhotosForm />
-			</Modal>
-			<Modal active={isActive2} closeModal={closeModal2} title="Photo settings">
-				{currentPhoto && <EditPhotoForm data={currentPhoto} />}
-			</Modal>
 			{albumData && Object.keys(albumData).length !== 0 ? (
-				<section className="section" aria-labelledby="albumSectionTitle">
-					<div className="section__container">
-						<h1 className="section__title" id="albumSectionTitle">
-							{albumData.album_name}
-						</h1>
-						<Link to="/" className="btn section__btn" aria-label="Go back" title="Go back">
-							Go back
-						</Link>
-					</div>
-					<div className="section__grid">
-						<article className="section__article">
-							<button
-								ref={openBtnRef1}
-								type="button"
-								className="section__new"
-								onClick={openModal1}
-								aria-label="Add new photos"
-							>
-								+
-							</button>
-							<div className="section__controls">
-								<p className="section__name">Add new photos</p>
-							</div>
-						</article>
-						{albumPhotos &&
-							albumPhotos.length > 0 &&
-							albumPhotos.map((item) => (
-								<PhotoItem key={item.photo_id} photo={item} openCurrentAlbum={openCurrentAlbum} />
-							))}
-					</div>
-				</section>
+				<>
+					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos" description="Max 10 photos!">
+						<NewPhotosForm albumId={albumData.album_id} />
+					</Modal>
+					<Modal active={isActive2} closeModal={closeModal2} title="Photo settings">
+						{currentPhoto && <EditPhotoForm data={currentPhoto} updatePhoto={updatePhoto} deletePhoto={deletePhoto} />}
+					</Modal>
+					<section className="section" aria-labelledby="albumSectionTitle">
+						<div className="section__container">
+							<h1 className="section__title" id="albumSectionTitle">
+								{albumData.album_name}
+							</h1>
+							<Link to="/" className="btn section__btn" aria-label="Go back" title="Go back">
+								Go back
+							</Link>
+						</div>
+						<div className="section__grid">
+							<article className="section__article">
+								<button
+									ref={openBtnRef1}
+									type="button"
+									className="section__new"
+									onClick={openModal1}
+									aria-label="Add new photos"
+								>
+									+
+								</button>
+								<div className="section__controls">
+									<p className="section__name">Add new photos</p>
+								</div>
+							</article>
+							{albumPhotos &&
+								albumPhotos.length > 0 &&
+								albumPhotos.map((item) => (
+									<PhotoItem key={item.photo_id} photo={item} openCurrentAlbum={openCurrentAlbum} />
+								))}
+						</div>
+					</section>
+				</>
 			) : null}
 		</>
 	);
