@@ -12,12 +12,22 @@ const albumsSlice = createSlice({
 		addNewAlbum: (state, action: PayloadAction<AlbumType>) => {
 			state.push(action.payload);
 		},
+		updateAlbum: (state, action: PayloadAction<AlbumType>) => {
+			return state.map((item) => {
+				if (item.album_id !== action.payload.album_id) return item;
+
+				return {
+					...item,
+					...action.payload,
+				};
+			});
+		},
 		removeAlbum: (state, action: PayloadAction<number>) => {
 			return state.filter((item) => item.album_id !== action.payload);
 		},
 	},
 });
 
-export const { setAllAlbums, addNewAlbum, removeAlbum } = albumsSlice.actions;
+export const { setAllAlbums, addNewAlbum, updateAlbum, removeAlbum } = albumsSlice.actions;
 
 export default albumsSlice.reducer;

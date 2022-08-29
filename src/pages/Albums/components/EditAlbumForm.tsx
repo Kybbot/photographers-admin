@@ -3,7 +3,7 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { InfoMessage } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
-import { removeAlbum } from "../../../redux/reducers/albumsSlice";
+import { removeAlbum, updateAlbum } from "../../../redux/reducers/albumsSlice";
 import { useAppDispatch } from "../../../redux/store";
 
 import { AlbumType } from "../../../@types/api";
@@ -46,9 +46,11 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 			date,
 		});
 
-		const result = await request("https://splastun2.node.shpp.me/api/album", "PUT", body);
+		const result = await request<AlbumType>("https://splastun2.node.shpp.me/api/album", "PUT", body);
 
-		console.log(result);
+		if (result && Object.keys(result).length > 0) {
+			dispatch(updateAlbum(result));
+		}
 	};
 
 	React.useEffect(() => {
