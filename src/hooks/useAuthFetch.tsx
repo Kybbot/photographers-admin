@@ -8,13 +8,20 @@ export const useAuthFetch = () => {
 	const [error, setError] = React.useState<string | null>(null);
 
 	const request = React.useCallback(
-		async <T,>(url: string, method?: string, body?: BodyInit, headers?: HeadersInit) => {
+		async <T,>(
+			url: string,
+			method?: string,
+			body?: BodyInit,
+			headers?: HeadersInit,
+			contentType = "application/json"
+		) => {
 			setLoading(true);
 
 			try {
 				if (body) {
 					headers = {
-						"Content-Type": "application/json",
+						...headers,
+						"Content-Type": contentType,
 					};
 				}
 
