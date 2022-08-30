@@ -4,11 +4,14 @@ import { InfoMessage } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
 
+import { PhotoType } from "../../../@types/api";
+
 type NewPhotosFormProps = {
 	albumId: number;
+	addNewPhoto: (newData: PhotoType[]) => void;
 };
 
-export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId }) => {
+export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId, addNewPhoto }) => {
 	const { loading, error, request } = useAuthFetch();
 
 	const [files, setFiles] = React.useState<File[]>([]);
@@ -35,21 +38,12 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId }) => {
 			formData.append("file", files[i]);
 		}
 
-		for (let i = 0; i < files.length; i++) {
-			console.log(formData.get("file"));
-		}
-
-		const data = await request(
-			"https://splastun2.node.shpp.me/api/photos",
-			"POST",
-			formData,
-			{},
-			"multipart/form-data"
-		);
+		const data = await request("https://splastun2.node.shpp.me/api/photos", "POST", formData, {}, true);
 
 		console.log(data);
 
-		setFiles([]);
+		// addNewPhoto(data);
+		// setFiles([]);
 	};
 
 	return (
@@ -72,7 +66,7 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId }) => {
 					  ))
 					: "No Photos"}
 			</div>
-			<button type="submit" className="btn" disabled={files.length > 10}>
+			<button type="submit" className="btn">
 				{files.length > 10 ? "Too many files" : "Upload Photos"}
 			</button>
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
