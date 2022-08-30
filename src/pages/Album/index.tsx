@@ -17,6 +17,7 @@ const Album: React.FC = () => {
 
 	const [albumData, setAlbumData] = React.useState<AlbumType | null>(null);
 	const [albumPhotos, setAlbumPhotos] = React.useState<PhotoType[]>([]);
+	const [stopLoop, setStopLoop] = React.useState(false);
 
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
@@ -32,6 +33,10 @@ const Album: React.FC = () => {
 		},
 		[openModal2]
 	);
+
+	const addNewPhoto = React.useCallback((newData: PhotoType[]) => {
+		setAlbumPhotos((prev) => [...prev, ...newData]);
+	}, []);
 
 	const updatePhoto = React.useCallback((photoId: number, newData: PhotoType) => {
 		setAlbumPhotos((prev) =>
@@ -69,11 +74,12 @@ const Album: React.FC = () => {
 			}
 		};
 
-		if (!albumData && !albumPhotos.length) {
+		if (!albumData && !albumPhotos.length && !stopLoop) {
 			void getAlbum();
 			void getAlbumPhotos();
+			setStopLoop(true);
 		}
-	}, [request, pathname, albumData, albumPhotos]);
+	}, [request, pathname, albumData, albumPhotos, stopLoop]);
 
 	if (loading) {
 		return <InfoMessage type="loading" message="Loading" />;
@@ -88,7 +94,7 @@ const Album: React.FC = () => {
 			{albumData && Object.keys(albumData).length !== 0 ? (
 				<>
 					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos" description="Max 10 photos!">
-						<NewPhotosForm albumId={albumData.album_id} />
+						<NewPhotosForm albumId={albumData.album_id} addNewPhoto={addNewPhoto} />
 					</Modal>
 					<Modal active={isActive2} closeModal={closeModal2} title="Photo settings">
 						{currentPhoto && <EditPhotoForm data={currentPhoto} updatePhoto={updatePhoto} deletePhoto={deletePhoto} />}
