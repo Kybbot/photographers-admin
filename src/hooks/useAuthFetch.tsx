@@ -8,21 +8,17 @@ export const useAuthFetch = () => {
 	const [error, setError] = React.useState<string | null>(null);
 
 	const request = React.useCallback(
-		async <T,>(
-			url: string,
-			method?: string,
-			body?: BodyInit,
-			headers?: HeadersInit,
-			contentType = "application/json"
-		) => {
+		async <T,>(url: string, method?: string, body?: BodyInit, headers?: HeadersInit, isItImage?: boolean) => {
 			setLoading(true);
 
 			try {
-				if (body) {
-					headers = {
-						...headers,
-						"Content-Type": contentType,
-					};
+				if (!isItImage) {
+					if (body) {
+						headers = {
+							...headers,
+							"Content-Type": "application/json",
+						};
+					}
 				}
 
 				const init = {
