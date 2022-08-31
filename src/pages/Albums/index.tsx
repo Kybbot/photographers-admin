@@ -9,8 +9,7 @@ import { AlbumItem } from "./components/AlbumItem";
 
 import { useModal } from "../../hooks/useModal";
 import { useAuthFetch } from "../../hooks/useAuthFetch";
-import { setAllAlbums } from "../../redux/reducers/albumsSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { useAlbums } from "../../stores/useAlbums";
 
 import { AlbumType } from "../../@types/api";
 // import { Popup } from "../../components/Popup";
@@ -19,8 +18,7 @@ const Albums: React.FC = () => {
 	const { deleteToken } = useAuthContext();
 	const { loading, error, request } = useAuthFetch();
 
-	const dispatch = useAppDispatch();
-	const albumsArr = useAppSelector((state) => state.albums);
+	const [albums, setAllAlbums] = useAlbums((state) => [state.albums, state.setAllAlbums]);
 
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
@@ -45,14 +43,14 @@ const Albums: React.FC = () => {
 			const data = await request<AlbumType[]>("https://splastun2.node.shpp.me/api/albums", "GET");
 
 			if (data) {
-				dispatch(setAllAlbums(data));
+				setAllAlbums(data);
 			}
 		};
 
-		if (!albumsArr.length) {
+		if (!albums.length) {
 			void getAlbums();
 		}
-	}, [request, dispatch, albumsArr]);
+	}, [request, albums, setAllAlbums]);
 
 	if (loading) {
 		return <InfoMessage type="loading" message="Loading" />;
@@ -61,8 +59,6 @@ const Albums: React.FC = () => {
 	if (error) {
 		return <InfoMessage type="error" message={error} />;
 	}
-
-	console.log("Albums");
 
 	return (
 		<>
@@ -103,9 +99,9 @@ const Albums: React.FC = () => {
 						</div>
 						<p className="section__location">Site</p>
 					</article>
-					{albumsArr &&
-						albumsArr.length > 0 &&
-						albumsArr.map((item) => <AlbumItem key={item.album_id} data={item} openCurrentAlbum={openCurrentAlbum} />)}
+					{albums &&
+						albums.length > 0 &&
+						albums.map((item) => <AlbumItem key={item.album_id} data={item} openCurrentAlbum={openCurrentAlbum} />)}
 				</div>
 			</section>
 		</>

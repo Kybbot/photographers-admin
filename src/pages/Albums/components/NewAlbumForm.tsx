@@ -3,15 +3,14 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { InfoMessage } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
-import { addNewAlbum } from "../../../redux/reducers/albumsSlice";
-import { useAppDispatch } from "../../../redux/store";
+import { useAlbums } from "../../../stores/useAlbums";
 
 import { AlbumType } from "../../../@types/api";
 
 export const NewAlbumForm: React.FC = React.memo(() => {
 	const { loading, error, request } = useAuthFetch();
 
-	const dispatch = useAppDispatch();
+	const addNewAlbumZus = useAlbums((state) => state.addNewAlbum);
 
 	const initialState = {
 		album_name: "",
@@ -43,13 +42,11 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 		const data = await request<[AlbumType]>("https://splastun2.node.shpp.me/api/album", "POST", body);
 
 		if (data) {
-			dispatch(addNewAlbum(data[0]));
+			addNewAlbumZus(data[0]);
 		}
 
 		setFormState(initialState);
 	};
-
-	console.log("NewAlbumForm");
 
 	return (
 		<form className="form" onSubmit={fromHandler}>

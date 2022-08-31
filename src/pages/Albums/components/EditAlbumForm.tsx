@@ -3,8 +3,7 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { InfoMessage } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
-import { removeAlbum, updateAlbum } from "../../../redux/reducers/albumsSlice";
-import { useAppDispatch } from "../../../redux/store";
+import { useAlbums } from "../../../stores/useAlbums";
 
 import { AlbumType } from "../../../@types/api";
 
@@ -15,7 +14,7 @@ type EditAlbumFormProps = {
 export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }: EditAlbumFormProps) => {
 	const { loading, error, request } = useAuthFetch();
 
-	const dispatch = useAppDispatch();
+	const [updateAlbum, removeAlbum] = useAlbums((state) => [state.updateAlbum, state.removeAlbum]);
 
 	const [formState, setFormState] = React.useState(data);
 
@@ -31,7 +30,7 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 		const result = await request<"ok">(`https://splastun2.node.shpp.me/api/album/${data.album_id}`, "DELETE");
 
 		if (result) {
-			dispatch(removeAlbum(data.album_id));
+			removeAlbum(data.album_id);
 		}
 	};
 
@@ -49,15 +48,13 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 		const result = await request<AlbumType>("https://splastun2.node.shpp.me/api/album", "PUT", body);
 
 		if (result && Object.keys(result).length > 0) {
-			dispatch(updateAlbum(result));
+			updateAlbum(result);
 		}
 	};
 
 	React.useEffect(() => {
 		setFormState(data);
 	}, [data]);
-
-	console.log("EditAlbumForm");
 
 	return (
 		<form className="form" onSubmit={fromHandler}>
