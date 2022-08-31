@@ -1,0 +1,21 @@
+@media (max-width: 768px) {
+	.modal__content {
+		padding: 16px;
+	}
+
+	.modal__header {
+		margin-bottom: 20px;
+	}
+}
+
+@media (max-height: 720px) {
+	.form__photos {
+		max-height: 320px;
+	}
+}
+
+@media (max-height: 660px) {
+	.form__photos {
+		max-height: 250px;
+	}
+}
