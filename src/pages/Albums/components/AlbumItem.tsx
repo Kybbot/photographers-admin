@@ -8,10 +8,12 @@ import { AlbumType } from "../../../@types/api";
 
 type AlbumItemProps = {
 	data: AlbumType;
-	openCurrentAlbum: (album: AlbumType) => void;
+	openCurrentAlbum: (album: AlbumType, btnRef: React.RefObject<HTMLButtonElement>) => void;
 };
 
 export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurrentAlbum }: AlbumItemProps) => {
+	const btnRef = React.useRef<HTMLButtonElement>(null);
+
 	return (
 		<article className="section__article">
 			<div className="section__wrapper">
@@ -41,7 +43,8 @@ export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurre
 					type="button"
 					aria-label="Album settings"
 					title="Album settings"
-					onClick={() => openCurrentAlbum(data)}
+					ref={btnRef}
+					onClick={() => openCurrentAlbum(data, btnRef)}
 				>
 					<svg
 						focusable="false"

@@ -4,10 +4,12 @@ import { PhotoType } from "../../../@types/api";
 
 type PhotoItemProps = {
 	photo: PhotoType;
-	openCurrentAlbum: (photo: PhotoType) => void;
+	openCurrentAlbum: (photo: PhotoType, btnRef: React.RefObject<HTMLButtonElement>) => void;
 };
 
 export const PhotoItem: React.FC<PhotoItemProps> = React.memo(({ photo, openCurrentAlbum }: PhotoItemProps) => {
+	const btnRef = React.useRef<HTMLButtonElement>(null);
+
 	return (
 		<article className="section__article">
 			<div className="section__wrapper">
@@ -20,7 +22,8 @@ export const PhotoItem: React.FC<PhotoItemProps> = React.memo(({ photo, openCurr
 					type="button"
 					aria-label="Photo settings"
 					title="Photo settings"
-					onClick={() => openCurrentAlbum(photo)}
+					ref={btnRef}
+					onClick={() => openCurrentAlbum(photo, btnRef)}
 				>
 					<svg
 						focusable="false"

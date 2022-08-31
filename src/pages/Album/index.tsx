@@ -25,15 +25,15 @@ const Album: React.FC = () => {
 
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
-	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal(openBtnRef1);
+	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal();
 	const { isActive: isActive2, openModal: openModal2, closeModal: closeModal2 } = useModal();
 
 	const [currentPhoto, setCurrentPhoto] = React.useState<PhotoType | null>(null);
 
 	const openCurrentAlbum = React.useCallback(
-		(photo: PhotoType) => {
+		(photo: PhotoType, btnRef: React.RefObject<HTMLButtonElement>) => {
 			setCurrentPhoto(photo);
-			openModal2();
+			openModal2(btnRef);
 		},
 		[openModal2]
 	);
@@ -94,7 +94,7 @@ const Album: React.FC = () => {
 									ref={openBtnRef1}
 									type="button"
 									className="section__new"
-									onClick={openModal1}
+									onClick={() => openModal1(openBtnRef1)}
 									aria-label="Add new photos"
 								>
 									+
