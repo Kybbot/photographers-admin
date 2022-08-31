@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+
 import { useAuthContext } from "./context/AuthContext";
 
 import MainLayout from "./layouts/MainLayout";
@@ -10,7 +11,6 @@ import NotFound from "./pages/NotFound";
 
 const App: React.FC = () => {
 	const { isLoggedIn } = useAuthContext();
-	console.log("App");
 
 	if (isLoggedIn) {
 		return (

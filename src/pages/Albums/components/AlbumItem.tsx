@@ -12,8 +12,6 @@ type AlbumItemProps = {
 };
 
 export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurrentAlbum }: AlbumItemProps) => {
-	console.log("AlbumItem");
-
 	return (
 		<article className="section__article">
 			<div className="section__wrapper">

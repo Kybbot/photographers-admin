@@ -32,7 +32,5 @@ export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
 		isLoggedIn,
 	};
 
-	console.log("Context");
-
 	return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
