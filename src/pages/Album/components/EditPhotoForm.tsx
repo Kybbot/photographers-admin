@@ -3,17 +3,18 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { InfoMessage } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
+import { usePhotos } from "../../../stores/usePhotos";
 
 import { PhotoType } from "../../../@types/api";
 
 type EditPhotoFormProps = {
 	data: PhotoType;
-	updatePhoto: (photoId: number, newData: PhotoType) => void;
-	deletePhoto: (photoId: number) => void;
 };
 
-export const EditPhotoForm: React.FC<EditPhotoFormProps> = ({ data, updatePhoto, deletePhoto }) => {
+export const EditPhotoForm: React.FC<EditPhotoFormProps> = React.memo(({ data }: EditPhotoFormProps) => {
 	const { loading, error, request } = useAuthFetch();
+
+	const [updatePhoto, deletePhoto] = usePhotos((state) => [state.updatePhoto, state.deletePhoto]);
 
 	const [formState, setFormState] = React.useState({ photo_name: data.photo_name });
 
@@ -44,7 +45,7 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = ({ data, updatePhoto,
 		const result = await request<PhotoType>("https://splastun2.node.shpp.me/api/photo", "PUT", body);
 
 		if (result && Object.keys(result).length > 0) {
-			updatePhoto(data.photo_id, result);
+			updatePhoto(result);
 		}
 	};
 
@@ -77,4 +78,6 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = ({ data, updatePhoto,
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
-};
+});
+
+EditPhotoForm.displayName = "EditPhotoForm";

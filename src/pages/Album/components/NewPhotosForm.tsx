@@ -3,16 +3,16 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { InfoMessage } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
-
-import { PhotoType } from "../../../@types/api";
+import { usePhotos } from "../../../stores/usePhotos";
 
 type NewPhotosFormProps = {
 	albumId: number;
-	addNewPhoto: (newData: PhotoType[]) => void;
 };
 
-export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId, addNewPhoto }) => {
+export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId }: NewPhotosFormProps) => {
 	const { loading, error, request } = useAuthFetch();
+
+	const addNewPhoto = usePhotos((state) => state.addNewPhoto);
 
 	const [files, setFiles] = React.useState<File[]>([]);
 
@@ -73,4 +73,6 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = ({ albumId, addNewPho
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
-};
+});
+
+NewPhotosForm.displayName = "NewPhotosForm";
