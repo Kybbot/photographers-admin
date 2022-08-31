@@ -8,7 +8,7 @@ export const useAuthFetch = () => {
 	const [error, setError] = React.useState<string | null>(null);
 
 	const request = React.useCallback(
-		async <T,>(url: string, method?: string, body?: BodyInit, headers?: HeadersInit, isItImage?: boolean) => {
+		async <T,>(endpoint: string, method?: string, body?: BodyInit, headers?: HeadersInit, isItImage?: boolean) => {
 			setLoading(true);
 
 			try {
@@ -27,7 +27,7 @@ export const useAuthFetch = () => {
 					headers,
 				};
 
-				const response = await authFetch(url, init);
+				const response = await authFetch(`https://splastun2.node.shpp.me/api${endpoint}`, init);
 
 				if (!response.ok) {
 					throw new Error(response.statusText);

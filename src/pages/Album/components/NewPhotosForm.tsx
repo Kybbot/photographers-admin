@@ -38,7 +38,7 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 			formData.append("file", files[i]);
 		}
 
-		const data = await request("https://splastun2.node.shpp.me/api/photos", "POST", formData, {}, true);
+		const data = await request("/photos", "POST", formData, {}, true);
 
 		console.log(data);
 

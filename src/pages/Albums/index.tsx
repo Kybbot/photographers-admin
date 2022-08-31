@@ -40,7 +40,7 @@ const Albums: React.FC = () => {
 
 	React.useEffect(() => {
 		const getAlbums = async () => {
-			const data = await request<AlbumType[]>("https://splastun2.node.shpp.me/api/albums", "GET");
+			const data = await request<AlbumType[]>("/albums", "GET");
 
 			if (data) {
 				setAllAlbums(data);

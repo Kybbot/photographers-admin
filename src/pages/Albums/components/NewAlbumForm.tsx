@@ -39,7 +39,7 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 			date,
 		});
 
-		const data = await request<[AlbumType]>("https://splastun2.node.shpp.me/api/album", "POST", body);
+		const data = await request<[AlbumType]>("/album", "POST", body);
 
 		if (data) {
 			addNewAlbumZus(data[0]);

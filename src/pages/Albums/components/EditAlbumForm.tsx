@@ -27,7 +27,7 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 	};
 
 	const deleteBtnHandler = async () => {
-		const result = await request<"ok">(`https://splastun2.node.shpp.me/api/album/${data.album_id}`, "DELETE");
+		const result = await request<"ok">(`/album/${data.album_id}`, "DELETE");
 
 		if (result) {
 			removeAlbum(data.album_id);
@@ -45,7 +45,7 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 			date,
 		});
 
-		const result = await request<AlbumType>("https://splastun2.node.shpp.me/api/album", "PUT", body);
+		const result = await request<AlbumType>("/album", "PUT", body);
 
 		if (result && Object.keys(result).length > 0) {
 			updateAlbum(result);

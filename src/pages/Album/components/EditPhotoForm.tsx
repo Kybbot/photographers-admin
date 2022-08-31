@@ -27,7 +27,7 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = React.memo(({ data }:
 	};
 
 	const deleteBtnHandler = async () => {
-		const result = await request(`https://splastun2.node.shpp.me/api/photo/${data.photo_id}`, "DELETE");
+		const result = await request(`/photo/${data.photo_id}`, "DELETE");
 
 		if (result) {
 			deletePhoto(data.photo_id);
@@ -42,7 +42,7 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = React.memo(({ data }:
 			photo_name: formState.photo_name,
 		});
 
-		const result = await request<PhotoType>("https://splastun2.node.shpp.me/api/photo", "PUT", body);
+		const result = await request<PhotoType>("/photo", "PUT", body);
 
 		if (result && Object.keys(result).length > 0) {
 			updatePhoto(result);

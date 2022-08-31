@@ -42,7 +42,7 @@ const Album: React.FC = () => {
 		const albumId = pathname.split("/")[2];
 
 		const getAlbum = async () => {
-			const data = await request<AlbumType>(`https://splastun2.node.shpp.me/api/album/${albumId}`, "GET");
+			const data = await request<AlbumType>(`/album/${albumId}`, "GET");
 
 			if (data) {
 				setAlbumData(data);
@@ -50,7 +50,7 @@ const Album: React.FC = () => {
 		};
 
 		const getAlbumPhotos = async () => {
-			const data = await request<PhotoType[]>(`https://splastun2.node.shpp.me/api/photos/${albumId}`, "GET");
+			const data = await request<PhotoType[]>(`/photos/${albumId}`, "GET");
 
 			if (data) {
 				setAlbumPhotos(data);
