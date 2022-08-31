@@ -1,5 +1,7 @@
 import React from "react";
 
+import { onTab } from "../utils/onTab";
+
 type ModalProps = {
 	title: string;
 	description?: string;
@@ -9,7 +11,39 @@ type ModalProps = {
 };
 
 export const Modal: React.FC<ModalProps> = ({ title, description, active, closeModal, children }) => {
+	const wrapperRef = React.useRef<HTMLDivElement>(null);
 	const closeBtnRef = React.useRef<HTMLButtonElement>(null);
+
+	React.useEffect(() => {
+		let handleModalKeyboard: (event: KeyboardEvent) => void;
+
+		if (active) {
+			if (wrapperRef.current) {
+				const elems: NodeListOf<HTMLButtonElement & HTMLInputElement> =
+					wrapperRef.current.querySelectorAll("button, input");
+				const arrOfEllems = Array.from(elems);
+
+				for (const elem of elems) {
+					elem.style.display = "block";
+				}
+
+				handleModalKeyboard = onTab(wrapperRef, arrOfEllems, closeModal);
+
+				document.addEventListener("keydown", handleModalKeyboard);
+			}
+		} else {
+			if (wrapperRef.current) {
+				const elems: NodeListOf<HTMLButtonElement & HTMLInputElement> =
+					wrapperRef.current.querySelectorAll("button, input");
+
+				for (const elem of elems) {
+					elem.style.display = "none";
+				}
+			}
+		}
+
+		return () => document.removeEventListener("keydown", handleModalKeyboard);
+	}, [active, closeModal]);
 
 	React.useEffect(() => {
 		if (active) {
@@ -19,7 +53,7 @@ export const Modal: React.FC<ModalProps> = ({ title, description, active, closeM
 
 	return (
 		<div aria-hidden={!active} className={`modal ${active ? "modal--visible" : ""}`}>
-			<div className="modal__content" role="dialog" aria-modal="true" aria-label="Modal window">
+			<div ref={wrapperRef} className="modal__content" role="dialog" aria-modal="true" aria-label="Modal window">
 				<div className="modal__header">
 					<div className="modal__wrapper">
 						<h2 className="modal__titel">{title}</h2>
@@ -34,4 +68,3 @@ export const Modal: React.FC<ModalProps> = ({ title, description, active, closeM
 		</div>
 	);
 };
-Modal.displayName = "Modal";
