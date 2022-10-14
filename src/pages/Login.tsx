@@ -31,7 +31,7 @@ const Login: React.FC = () => {
 		setLoading(true);
 
 		try {
-			const response = await fetch("https://splastun2.node.shpp.me/api/login", {
+			const response = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/login`, {
 				method: "POST",
 				headers: {
 					"content-type": "application/json",
@@ -41,12 +41,12 @@ const Login: React.FC = () => {
 
 			const data = (await response.json()) as loginResponse;
 
-			if ((!response.ok && data.message) || (response.status === 404 && data.message)) {
+			if (!response.ok && !data.logged) {
 				throw new Error(data.message);
 			}
 
-			if (response.ok && response.status === 200 && data.token) {
-				saveToken({ accessToken: data.token });
+			if (response.ok && data.logged) {
+				saveToken({ accessToken: data.token.accessToken });
 			}
 
 			setLoading(false);

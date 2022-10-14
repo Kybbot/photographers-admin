@@ -1,13 +1,20 @@
-export type loginResponse = {
-	token?: string;
-	user?: {
+type loginResult = {
+	token: {
+		accessToken: string;
+	};
+	user: {
 		person_id: number;
 		login: string;
-		fullname: string;
-		email: string;
 	};
-	message?: string;
+	logged: true;
 };
+
+type loginError = {
+	message: string;
+	logged: false;
+};
+
+export type loginResponse = loginResult | loginError;
 
 export type AlbumType = {
 	album_id: number;
