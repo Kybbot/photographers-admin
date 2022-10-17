@@ -17,7 +17,7 @@ type loginError = {
 export type loginResponse = loginResult | loginError;
 
 export type AlbumType = {
-	album_id: number;
+	id: number;
 	album_name: string;
 	album_location: string;
 	album_logo: string | null;

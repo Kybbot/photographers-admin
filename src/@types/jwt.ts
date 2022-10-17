@@ -9,7 +9,7 @@ export const LocalStorageTokenSchema = z
 export type LocalStorageTokenType = z.infer<typeof LocalStorageTokenSchema>;
 
 export const TokenPayloadSchema = z.object({
-	login: z.string(),
+	id: z.number(),
 	iat: z.number(),
 	exp: z.number(),
 });

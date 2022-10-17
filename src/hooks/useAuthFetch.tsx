@@ -27,7 +27,7 @@ export const useAuthFetch = () => {
 					headers,
 				};
 
-				const response = await authFetch(`https://splastun2.node.shpp.me/api${endpoint}`, init);
+				const response = await authFetch(`${import.meta.env.VITE_API_ENDPOINT}${endpoint}`, init);
 
 				if (!response.ok) {
 					throw new Error(response.statusText);
