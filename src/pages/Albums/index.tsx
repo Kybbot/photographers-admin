@@ -94,7 +94,7 @@ const Albums: React.FC = () => {
 					</article>
 					{albums &&
 						albums.length > 0 &&
-						albums.map((item) => <AlbumItem key={item.album_id} data={item} openCurrentAlbum={openCurrentAlbum} />)}
+						albums.map((item) => <AlbumItem key={item.id} data={item} openCurrentAlbum={openCurrentAlbum} />)}
 				</div>
 			</section>
 		</>

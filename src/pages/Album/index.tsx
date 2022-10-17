@@ -74,7 +74,7 @@ const Album: React.FC = () => {
 			{albumData && Object.keys(albumData).length !== 0 ? (
 				<>
 					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos" description="Max 10 photos!">
-						<NewPhotosForm albumId={albumData.album_id} />
+						<NewPhotosForm albumId={albumData.id} />
 					</Modal>
 					<Modal active={isActive2} closeModal={closeModal2} title="Photo settings">
 						{currentPhoto && <EditPhotoForm data={currentPhoto} />}

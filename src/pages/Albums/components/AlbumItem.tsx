@@ -31,9 +31,9 @@ export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurre
 			<div className="section__controls">
 				<Link
 					className="section__link"
-					to={`/album/${data.album_id}`}
+					to={`/album/${data.id}`}
 					state={{
-						albumId: data.album_id,
+						albumId: data.id,
 					}}
 				>
 					{data.album_name}

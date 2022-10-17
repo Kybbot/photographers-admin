@@ -27,10 +27,10 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 	};
 
 	const deleteBtnHandler = async () => {
-		const result = await request<"ok">(`/album/${data.album_id}`, "DELETE");
+		const result = await request<{ message: "Deleted!" }>(`/albums/${data.id}`, "DELETE");
 
 		if (result) {
-			removeAlbum(data.album_id);
+			removeAlbum(data.id);
 		}
 	};
 
@@ -39,7 +39,7 @@ export const EditAlbumForm: React.FC<EditAlbumFormProps> = React.memo(({ data }:
 		const date = new Date(formState.date).valueOf();
 
 		const body = JSON.stringify({
-			album_id: formState.album_id,
+			id: formState.id,
 			album_name: formState.album_name,
 			album_location: formState.album_location,
 			date,
