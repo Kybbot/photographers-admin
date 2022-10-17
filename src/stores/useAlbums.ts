@@ -27,7 +27,7 @@ export const useAlbums = create<AlbumsStore>()((set, get) => ({
 
 		set({
 			albums: albums.map((item) => {
-				if (item.album_id !== album.album_id) return item;
+				if (item.id !== album.id) return item;
 
 				return {
 					...item,
@@ -40,7 +40,7 @@ export const useAlbums = create<AlbumsStore>()((set, get) => ({
 		const { albums } = get();
 
 		set({
-			albums: albums.filter((item) => item.album_id !== albumId),
+			albums: albums.filter((item) => item.id !== albumId),
 		});
 	},
 }));
