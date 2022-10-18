@@ -39,10 +39,10 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 			date,
 		});
 
-		const data = await request<[AlbumType]>("/album", "POST", body);
+		const result = await request<[AlbumType]>("/album", "POST", body);
 
-		if (data) {
-			addNewAlbumZus(data[0]);
+		if (result?.success) {
+			addNewAlbumZus(result.data[0]);
 		}
 
 		setFormState(initialState);

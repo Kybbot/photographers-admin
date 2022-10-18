@@ -39,10 +39,10 @@ const Albums: React.FC = () => {
 
 	React.useEffect(() => {
 		const getAlbums = async () => {
-			const data = await request<AlbumType[]>("/albums", "GET");
+			const result = await request<AlbumType[]>("/albums", "GET");
 
-			if (data) {
-				setAllAlbums(data);
+			if (result?.success) {
+				setAllAlbums(result.data);
 			}
 		};
 
