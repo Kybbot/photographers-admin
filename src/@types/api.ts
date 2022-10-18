@@ -32,3 +32,17 @@ export type PhotoType = {
 	photo_url: string;
 	album_id: number;
 };
+
+type ApiResult<T> = {
+	data: T;
+	success: true;
+};
+
+type ApiError = {
+	error: {
+		message: string;
+	};
+	success: false;
+};
+
+export type ApiResponse<T> = ApiError | ApiResult<T>;
