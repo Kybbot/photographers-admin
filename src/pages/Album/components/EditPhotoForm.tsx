@@ -27,9 +27,9 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = React.memo(({ data }:
 	};
 
 	const deleteBtnHandler = async () => {
-		const result = await request(`/photo/${data.photo_id}`, "DELETE");
+		const result = await request<string>(`/photo/${data.photo_id}`, "DELETE");
 
-		if (result) {
+		if (result?.success) {
 			deletePhoto(data.photo_id);
 		}
 	};
@@ -37,15 +37,18 @@ export const EditPhotoForm: React.FC<EditPhotoFormProps> = React.memo(({ data }:
 	const fromHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		const body = JSON.stringify({
+		const body = {
 			photo_id: data.photo_id,
 			photo_name: formState.photo_name,
-		});
+		};
 
-		const result = await request<PhotoType>("/photo", "PUT", body);
+		const result = await request<string>("/photo", "PUT", JSON.stringify(body));
 
-		if (result && Object.keys(result).length > 0) {
-			updatePhoto(result);
+		if (result?.success) {
+			updatePhoto({
+				...data,
+				photo_name: formState.photo_name,
+			});
 		}
 	};
 
