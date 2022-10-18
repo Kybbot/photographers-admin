@@ -2,6 +2,8 @@ import React from "react";
 
 import { useAuthContext } from "../context/AuthContext";
 
+import { ApiResponse } from "../@types/api";
+
 export const useAuthFetch = () => {
 	const { authFetch } = useAuthContext();
 	const [loading, setLoading] = React.useState(false);
@@ -29,15 +31,17 @@ export const useAuthFetch = () => {
 
 				const response = await authFetch(`${import.meta.env.VITE_API_ENDPOINT}${endpoint}`, init);
 
-				if (!response.ok) {
-					throw new Error(response.statusText);
+				const data = (await response.json()) as ApiResponse<T>;
+
+				if (!response.ok && !data.success) {
+					setLoading(false);
+					throw new Error(data.error.message);
 				}
 
-				const data = (await response.json()) as T;
-
-				setLoading(false);
-
-				return data;
+				if (data.success) {
+					setLoading(false);
+					return data;
+				}
 			} catch (error) {
 				setLoading(false);
 				if (error instanceof Error) {
