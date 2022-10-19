@@ -8,8 +8,6 @@ export type PhotosStore = {
 	setAlbumData: (data: AlbumType) => void;
 	setAlbumPhotos: (photos: PhotoType[]) => void;
 	addNewPhoto: (newPhotos: PhotoType[]) => void;
-	updatePhoto: (photo: PhotoType) => void;
-	deletePhoto: (photoId: number) => void;
 };
 
 export const usePhotos = create<PhotosStore>()((set, get) => ({
@@ -26,27 +24,6 @@ export const usePhotos = create<PhotosStore>()((set, get) => ({
 
 		set({
 			photos: [...photos, ...newPhotos],
-		});
-	},
-	updatePhoto: (photo) => {
-		const { photos } = get();
-
-		set({
-			photos: photos.map((item) => {
-				if (item.photo_id !== photo.photo_id) return item;
-
-				return {
-					...item,
-					...photo,
-				};
-			}),
-		});
-	},
-	deletePhoto: (photoId) => {
-		const { photos } = get();
-
-		set({
-			photos: photos.filter((item) => item.photo_id !== photoId),
 		});
 	},
 }));

@@ -26,7 +26,7 @@ export type AlbumType = {
 };
 
 export type PhotoType = {
-	photo_id: number;
+	id: number;
 	photo_logo: string;
 	photo_name: string;
 	photo_url: string;

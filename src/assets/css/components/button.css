@@ -10,10 +10,6 @@
 	cursor: pointer;
 }
 
-.btn--delete {
-	background-color: var(--red-color);
-}
-
 .btn:disabled {
 	background-color: var(--red-color);
 	cursor: auto;

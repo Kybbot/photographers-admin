@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import { InfoMessage, Modal } from "../../components";
 import { PhotoItem } from "./components/PhotoItem";
 import { NewPhotosForm } from "./components/NewPhotosForm";
-import { EditPhotoForm } from "./components/EditPhotoForm";
 
 import { useModal } from "../../hooks/useModal";
 import { useAuthFetch } from "../../hooks/useAuthFetch";
@@ -26,17 +25,6 @@ const Album: React.FC = () => {
 	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
 
 	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal();
-	const { isActive: isActive2, openModal: openModal2, closeModal: closeModal2 } = useModal();
-
-	const [currentPhoto, setCurrentPhoto] = React.useState<PhotoType | null>(null);
-
-	const openCurrentAlbum = React.useCallback(
-		(photo: PhotoType, btnRef: React.RefObject<HTMLButtonElement>) => {
-			setCurrentPhoto(photo);
-			openModal2(btnRef);
-		},
-		[openModal2]
-	);
 
 	React.useEffect(() => {
 		const albumId = pathname.split("/")[2];
@@ -76,9 +64,6 @@ const Album: React.FC = () => {
 					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos" description="Max 10 photos!">
 						<NewPhotosForm albumId={albumData.id} />
 					</Modal>
-					<Modal active={isActive2} closeModal={closeModal2} title="Photo settings">
-						{currentPhoto && <EditPhotoForm data={currentPhoto} />}
-					</Modal>
 					<section className="section" aria-labelledby="albumSectionTitle">
 						<div className="section__container">
 							<h1 className="section__title" id="albumSectionTitle">
@@ -105,9 +90,7 @@ const Album: React.FC = () => {
 							</article>
 							{albumPhotos &&
 								albumPhotos.length > 0 &&
-								albumPhotos.map((item) => (
-									<PhotoItem key={item.photo_id} photo={item} openCurrentAlbum={openCurrentAlbum} />
-								))}
+								albumPhotos.map((item) => <PhotoItem key={item.id} photo={item} />)}
 						</div>
 					</section>
 				</>

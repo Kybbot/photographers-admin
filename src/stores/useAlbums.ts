@@ -6,8 +6,6 @@ export type AlbumsStore = {
 	albums: AlbumType[];
 	setAllAlbums: (albums: AlbumType[]) => void;
 	addNewAlbum: (album: AlbumType) => void;
-	updateAlbum: (album: AlbumType) => void;
-	removeAlbum: (albumId: number) => void;
 };
 
 export const useAlbums = create<AlbumsStore>()((set, get) => ({
@@ -20,27 +18,6 @@ export const useAlbums = create<AlbumsStore>()((set, get) => ({
 
 		set({
 			albums: [...albums, album],
-		});
-	},
-	updateAlbum: (album) => {
-		const { albums } = get();
-
-		set({
-			albums: albums.map((item) => {
-				if (item.id !== album.id) return item;
-
-				return {
-					...item,
-					...album,
-				};
-			}),
-		});
-	},
-	removeAlbum: (albumId) => {
-		const { albums } = get();
-
-		set({
-			albums: albums.filter((item) => item.id !== albumId),
 		});
 	},
 }));

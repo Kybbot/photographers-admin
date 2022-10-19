@@ -43,28 +43,11 @@
 	margin: 10px 0 5px 0;
 }
 
-.sections__link {
+.section__link {
 	color: var(--text-color);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-}
-
-.sections__link svg {
-	flex: 0 0 16px;
-}
-
-.sections__link:hover {
-	text-decoration: underline;
-}
-
-.section__setting {
-	background-color: transparent;
-	padding: 0;
-	border-style: none;
-	cursor: pointer;
-	width: 16px;
-	height: 16px;
 }
 
 .section__name {

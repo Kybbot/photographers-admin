@@ -8,12 +8,9 @@ import { AlbumType } from "../../../@types/api";
 
 type AlbumItemProps = {
 	data: AlbumType;
-	openCurrentAlbum: (album: AlbumType, btnRef: React.RefObject<HTMLButtonElement>) => void;
 };
 
-export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurrentAlbum }: AlbumItemProps) => {
-	const btnRef = React.useRef<HTMLButtonElement>(null);
-
+export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data }: AlbumItemProps) => {
 	return (
 		<article className="section__article">
 			<div className="section__wrapper">
@@ -38,28 +35,6 @@ export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data, openCurre
 				>
 					{data.album_name}
 				</Link>
-				<button
-					className="section__setting"
-					type="button"
-					aria-label="Album settings"
-					title="Album settings"
-					ref={btnRef}
-					onClick={() => openCurrentAlbum(data, btnRef)}
-				>
-					<svg
-						focusable="false"
-						aria-hidden="true"
-						fill="none"
-						width="16"
-						height="16"
-						stroke="#000000"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					>
-						<use xlinkHref="#settings" />
-					</svg>
-				</button>
 			</div>
 			<p className="section__location">{data.album_location}</p>
 		</article>
