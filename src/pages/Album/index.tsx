@@ -42,10 +42,10 @@ const Album: React.FC = () => {
 		const albumId = pathname.split("/")[2];
 
 		const getAlbum = async () => {
-			const result = await request<AlbumType>(`/albums/${albumId}`, "GET");
+			const result = await request<[AlbumType]>(`/album/${albumId}`, "GET");
 
 			if (result?.success) {
-				setAlbumData(result.data);
+				setAlbumData(result.data[0]);
 			}
 		};
 
