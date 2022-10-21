@@ -49,6 +49,10 @@ const Album: React.FC = () => {
 		void getAlbumPhotos();
 	}, [request, pathname, setAlbumData, setAlbumPhotos]);
 
+	React.useEffect(() => {
+		return () => setAlbumPhotos([]);
+	}, [setAlbumPhotos]);
+
 	if (loading) {
 		return <InfoMessage type="loading" message="Loading" />;
 	}
