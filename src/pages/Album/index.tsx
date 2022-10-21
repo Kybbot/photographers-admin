@@ -61,7 +61,7 @@ const Album: React.FC = () => {
 		<>
 			{albumData && Object.keys(albumData).length !== 0 ? (
 				<>
-					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos" description="Max 10 photos!">
+					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos">
 						<NewPhotosForm albumId={albumData.id} />
 					</Modal>
 					<section className="section" aria-labelledby="albumSectionTitle">

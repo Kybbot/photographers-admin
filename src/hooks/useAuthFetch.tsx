@@ -8,9 +8,12 @@ export const useAuthFetch = () => {
 	const { authFetch } = useAuthContext();
 	const [loading, setLoading] = React.useState(false);
 	const [error, setError] = React.useState<string | null>(null);
+	const [success, setSuccess] = React.useState(false);
 
 	const request = React.useCallback(
 		async <T,>(endpoint: string, method?: string, body?: BodyInit, headers?: HeadersInit, isItImage?: boolean) => {
+			setError(null);
+			setSuccess(false);
 			setLoading(true);
 
 			try {
@@ -39,6 +42,7 @@ export const useAuthFetch = () => {
 				}
 
 				if (data.success) {
+					setSuccess(true);
 					setLoading(false);
 					return data;
 				}
@@ -52,5 +56,5 @@ export const useAuthFetch = () => {
 		[authFetch]
 	);
 
-	return { loading, error, request };
+	return { loading, error, success, request };
 };

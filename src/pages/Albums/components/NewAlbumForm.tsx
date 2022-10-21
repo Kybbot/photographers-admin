@@ -8,7 +8,7 @@ import { useAlbums } from "../../../stores/useAlbums";
 import { AlbumType } from "../../../@types/api";
 
 export const NewAlbumForm: React.FC = React.memo(() => {
-	const { loading, error, request } = useAuthFetch();
+	const { loading, error, success, request } = useAuthFetch();
 
 	const addNewAlbumZus = useAlbums((state) => state.addNewAlbum);
 
@@ -90,6 +90,7 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 				Save
 			</button>
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
+			{success ? <InfoMessage type="success" message="The album was created successfully" /> : null}
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);

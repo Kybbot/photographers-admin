@@ -4,6 +4,7 @@
 	text-decoration: underline;
 	text-decoration-thickness: 5px;
 	text-underline-position: under;
+	margin: 0;
 }
 
 .info-message__loading {

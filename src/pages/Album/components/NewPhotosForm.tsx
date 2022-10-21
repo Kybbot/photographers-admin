@@ -10,7 +10,7 @@ type NewPhotosFormProps = {
 };
 
 export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId }: NewPhotosFormProps) => {
-	const { loading, error, request } = useAuthFetch();
+	const { loading, error, success, request } = useAuthFetch();
 
 	const addNewPhoto = usePhotos((state) => state.addNewPhoto);
 
@@ -67,9 +67,10 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 					: "No Photos"}
 			</div>
 			<button type="submit" className="btn">
-				{files.length > 10 ? "Too many files" : "Upload Photos"}
+				Upload Photos
 			</button>
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
+			{success ? <InfoMessage type="success" message="Photos were saved successfully" /> : null}
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
