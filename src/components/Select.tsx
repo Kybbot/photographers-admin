@@ -1,48 +1,27 @@
 import React, { useCallback, KeyboardEvent } from "react";
 
-import { SelectOption } from "../@types/select";
-
-type SingleSelectProps = {
-	multiple?: false;
-	value?: SelectOption;
-	onChange: (value: SelectOption | undefined) => void;
-};
-
-type MultipleSelectProps = {
-	multiple: true;
-	value: SelectOption[];
-	onChange: (value: SelectOption[]) => void;
-};
+import { ClientsType } from "../@types/api";
 
 type SelectProps = {
-	options: SelectOption[];
-} & (SingleSelectProps | MultipleSelectProps);
+	options: ClientsType[];
+	imgName: string;
+	value: ClientsType[];
+	setTestFiles: (client: ClientsType, imgName: string) => void;
+};
 
-export const Select: React.FC<SelectProps> = ({ multiple, value, options, onChange }) => {
+export const Select: React.FC<SelectProps> = ({ value, options, imgName, setTestFiles }) => {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [highlightedIndex, setHighlightedIndex] = React.useState(0);
 
-	const clearOptions = () => {
-		multiple ? onChange([]) : onChange(undefined);
-	};
-
 	const selectOption = useCallback(
-		(option: SelectOption) => {
-			if (multiple) {
-				if (value.includes(option)) {
-					onChange(value.filter((o) => o !== option));
-				} else {
-					onChange([...value, option]);
-				}
-			} else {
-				if (option !== value) onChange(option);
-			}
+		(option: ClientsType) => {
+			setTestFiles(option, imgName);
 		},
-		[multiple, onChange, value]
+		[setTestFiles, imgName]
 	);
 
-	const isOptionSelected = (option: SelectOption) => {
-		return multiple ? value.includes(option) : option === value;
+	const isOptionSelected = (option: ClientsType) => {
+		return value.includes(option);
 	};
 
 	const selectKeyHandler = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -71,7 +50,7 @@ export const Select: React.FC<SelectProps> = ({ multiple, value, options, onChan
 		}
 	};
 
-	const liKeyHandler = (e: KeyboardEvent<HTMLLIElement>, option: SelectOption) => {
+	const liKeyHandler = (e: KeyboardEvent<HTMLLIElement>, option: ClientsType) => {
 		e.stopPropagation();
 
 		switch (e.code) {
@@ -96,39 +75,27 @@ export const Select: React.FC<SelectProps> = ({ multiple, value, options, onChan
 			role="menu"
 		>
 			<span className="select__value">
-				{multiple
-					? value.map((v) => (
-							<button
-								type="button"
-								key={v.value}
-								onClick={(e) => {
-									e.stopPropagation();
-									selectOption(v);
-								}}
-								className="select__option-badge"
-							>
-								{v.label}
-								<span className="select__remove">&times;</span>
-							</button>
-					  ))
-					: value?.label}
+				{value.map((v) => (
+					<button
+						type="button"
+						key={v.id}
+						onClick={(e) => {
+							e.stopPropagation();
+							selectOption(v);
+						}}
+						className="select__option-badge"
+					>
+						{v.phone_number}
+						<span className="select__remove">&times;</span>
+					</button>
+				))}
 			</span>
-			<button
-				type="button"
-				onClick={(e) => {
-					e.stopPropagation();
-					clearOptions();
-				}}
-				className="select__close"
-			>
-				&times;
-			</button>
 			<div className="select__divider"></div>
 			<div className="select__caret"></div>
 			<ul className={`select__options ${isOpen ? "select__show" : ""}`}>
 				{options.map((option, index) => (
 					<li
-						key={option.value}
+						key={option.id}
 						onMouseEnter={() => setHighlightedIndex(index)}
 						className={`select__option ${isOptionSelected(option) ? "select__selected" : ""} ${
 							index === highlightedIndex ? "select__highlighted" : ""
@@ -141,7 +108,7 @@ export const Select: React.FC<SelectProps> = ({ multiple, value, options, onChan
 						onKeyDown={(event) => liKeyHandler(event, option)}
 						role="menuitem"
 					>
-						{option.label}
+						{option.phone_number}
 					</li>
 				))}
 			</ul>
