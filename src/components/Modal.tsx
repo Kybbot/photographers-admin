@@ -8,9 +8,10 @@ type ModalProps = {
 	active: boolean;
 	closeModal: () => void;
 	children: React.ReactNode;
+	modalContentFull?: boolean;
 };
 
-export const Modal: React.FC<ModalProps> = ({ title, description, active, closeModal, children }) => {
+export const Modal: React.FC<ModalProps> = ({ title, description, active, closeModal, children, modalContentFull }) => {
 	const wrapperRef = React.useRef<HTMLDivElement>(null);
 	const closeBtnRef = React.useRef<HTMLButtonElement>(null);
 
@@ -53,7 +54,13 @@ export const Modal: React.FC<ModalProps> = ({ title, description, active, closeM
 
 	return (
 		<div aria-hidden={!active} className={`modal ${active ? "modal--visible" : ""}`}>
-			<div ref={wrapperRef} className="modal__content" role="dialog" aria-modal="true" aria-label="Modal window">
+			<div
+				ref={wrapperRef}
+				className={`modal__content ${modalContentFull ? "modal__content--full" : ""}`}
+				role="dialog"
+				aria-modal="true"
+				aria-label="Modal window"
+			>
 				<div className="modal__header">
 					<div className="modal__wrapper">
 						<h2 className="modal__titel">{title}</h2>
