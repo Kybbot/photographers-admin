@@ -45,7 +45,7 @@
 }
 
 .form__photos {
-	max-height: 390px;
+	max-height: 460px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 	gap: 10px;
@@ -53,8 +53,9 @@
 }
 
 .form__wrapper {
+	display: grid;
+	gap: 10px;
 	position: relative;
-	aspect-ratio: 1 / 1;
 }
 
 .form__remove {
@@ -72,6 +73,7 @@
 	height: 100%;
 	object-fit: cover;
 	border-radius: var(--radius);
+	aspect-ratio: 1 / 1;
 }
 
 .form__btns {

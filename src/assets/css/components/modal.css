@@ -9,7 +9,7 @@
 	right: 0;
 	bottom: 0;
 	opacity: 0;
-	padding: 0 16px;
+	padding: 16px;
 	transition: opacity 0.3s ease;
 	pointer-events: none;
 }
@@ -25,6 +25,11 @@
 	max-width: 632px;
 	width: 100%;
 	padding: 30px 16px;
+}
+
+.modal__content--full {
+	height: 100%;
+	max-width: 100%;
 }
 
 .modal__header {
