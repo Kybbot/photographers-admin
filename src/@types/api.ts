@@ -33,6 +33,13 @@ export type PhotoType = {
 	album_id: number;
 };
 
+export type ClientsType = {
+	id: number;
+	client_name: string;
+	phone_number: string;
+	admin_id: string;
+};
+
 type ApiResult<T> = {
 	data: T;
 	success: true;

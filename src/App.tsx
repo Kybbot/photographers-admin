@@ -9,8 +9,30 @@ import Albums from "./pages/Albums";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
+import { useAuthFetch } from "./hooks/useAuthFetch";
+import { useAlbums } from "./stores/useAlbums";
+
+import { ClientsType } from "./@types/api";
+
 const App: React.FC = () => {
 	const { isLoggedIn } = useAuthContext();
+	const { request } = useAuthFetch();
+
+	const [clients, setAllClients] = useAlbums((state) => [state.clients, state.setAllClients]);
+
+	React.useEffect(() => {
+		const getClients = async () => {
+			const result = await request<ClientsType[]>("/clients", "GET");
+
+			if (result?.success) {
+				setAllClients(result.data);
+			}
+		};
+
+		if (!clients.length) {
+			void getClients();
+		}
+	}, [request, clients, setAllClients]);
 
 	if (isLoggedIn) {
 		return (
