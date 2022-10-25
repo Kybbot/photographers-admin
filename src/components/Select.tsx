@@ -1,26 +1,24 @@
 import React, { useCallback, KeyboardEvent } from "react";
 
-import { ClientsType } from "../@types/api";
-
 type SelectProps = {
-	options: ClientsType[];
+	options: string[];
 	imgName: string;
-	value: ClientsType[];
-	setTestFiles: (client: ClientsType, imgName: string) => void;
+	value: string[];
+	changeClients: (client: string, imgName: string) => void;
 };
 
-export const Select: React.FC<SelectProps> = ({ value, options, imgName, setTestFiles }) => {
+export const Select: React.FC<SelectProps> = ({ value, options, imgName, changeClients }) => {
 	const [isOpen, setIsOpen] = React.useState(false);
 	const [highlightedIndex, setHighlightedIndex] = React.useState(0);
 
 	const selectOption = useCallback(
-		(option: ClientsType) => {
-			setTestFiles(option, imgName);
+		(option: string) => {
+			changeClients(option, imgName);
 		},
-		[setTestFiles, imgName]
+		[changeClients, imgName]
 	);
 
-	const isOptionSelected = (option: ClientsType) => {
+	const isOptionSelected = (option: string) => {
 		return value.includes(option);
 	};
 
@@ -50,7 +48,7 @@ export const Select: React.FC<SelectProps> = ({ value, options, imgName, setTest
 		}
 	};
 
-	const liKeyHandler = (e: KeyboardEvent<HTMLLIElement>, option: ClientsType) => {
+	const liKeyHandler = (e: KeyboardEvent<HTMLLIElement>, option: string) => {
 		e.stopPropagation();
 
 		switch (e.code) {
@@ -78,14 +76,14 @@ export const Select: React.FC<SelectProps> = ({ value, options, imgName, setTest
 				{value.map((v) => (
 					<button
 						type="button"
-						key={v.id}
+						key={v}
 						onClick={(e) => {
 							e.stopPropagation();
 							selectOption(v);
 						}}
 						className="select__option-badge"
 					>
-						{v.phone_number}
+						{v}
 						<span className="select__remove">&times;</span>
 					</button>
 				))}
@@ -95,7 +93,7 @@ export const Select: React.FC<SelectProps> = ({ value, options, imgName, setTest
 			<ul className={`select__options ${isOpen ? "select__show" : ""}`}>
 				{options.map((option, index) => (
 					<li
-						key={option.id}
+						key={option}
 						onMouseEnter={() => setHighlightedIndex(index)}
 						className={`select__option ${isOptionSelected(option) ? "select__selected" : ""} ${
 							index === highlightedIndex ? "select__highlighted" : ""
@@ -108,7 +106,7 @@ export const Select: React.FC<SelectProps> = ({ value, options, imgName, setTest
 						onKeyDown={(event) => liKeyHandler(event, option)}
 						role="menuitem"
 					>
-						{option.phone_number}
+						{option}
 					</li>
 				))}
 			</ul>
