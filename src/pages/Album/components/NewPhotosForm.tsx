@@ -1,94 +1,89 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
-import { InfoMessage, Select } from "../../../components";
+import { InfoMessage, Select, SelectInput } from "../../../components";
 
 import { useAuthFetch } from "../../../hooks/useAuthFetch";
 import { useAlbums } from "../../../stores/useAlbums";
-// import { usePhotos } from "../../../stores/usePhotos";
-
-import { ClientsType } from "../../../@types/api";
 
 type NewPhotosFormProps = {
 	albumId: number;
 };
 
-type mapObject = {
-	file: File;
-	clients: ClientsType[];
-};
-
 export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId }: NewPhotosFormProps) => {
 	const { loading, error, success, request } = useAuthFetch();
 
-	const [clients] = useAlbums((state) => [state.clients]);
+	const clientsNumbers = useAlbums((state) => state.clientsNumbers);
 
-	// const addNewPhoto = usePhotos((state) => state.addNewPhoto);
-
-	const map = new Map<string, mapObject>();
-	const [testFiles, setTestFiles] = useState<[string, mapObject][]>(Array.from(map));
+	const [clientsMap, setClientsMap] = useState<Map<string, string[]>>();
+	const [files, setFiles] = useState<File[]>([]);
 
 	const filesHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files) {
-			Array.from(event.target.files).map((item) => map.set(item.name, { file: item, clients: [clients[0]] }));
-			setTestFiles(Array.from(map));
+			const files = Array.from(event.target.files);
+
+			const list = new Map<string, string[]>();
+
+			for (let i = 0; i < files.length; i++) {
+				list.set(files[i].name, []);
+			}
+
+			setFiles(files);
+			setClientsMap(list);
 		}
 	};
 
 	const removeFileHandler = (name: string) => {
-		setTestFiles((prev) => {
-			const arr = prev;
+		if (clientsMap) {
+			const list = new Map(clientsMap);
+			list.delete(name);
 
-			for (let i = 0; i < prev.length; i++) {
-				if (arr[i][0] === name) {
-					arr.splice(i, 1);
-				}
-			}
-
-			return [...arr];
-		});
+			setClientsMap(list);
+		}
 	};
 
-	const selectClientsHandler = (client: ClientsType, imgName: string) => {
-		setTestFiles((prev) => {
-			const arr = prev;
+	const selectClientsHandler = (client: string, imgName: string) => {
+		if (clientsMap) {
+			const list = new Map(clientsMap);
 
-			for (let i = 0; i < arr.length; i++) {
-				if (arr[i][0] === imgName) {
-					if (arr[i][1].clients.includes(client)) {
-						const filteredClients = arr[i][1].clients.filter((item) => item !== client);
-						arr[i][1].clients = [...filteredClients];
-					} else {
-						arr[i][1].clients = [...arr[i][1].clients, client];
-					}
+			const clients = list.get(imgName);
+
+			if (clients) {
+				if (clients.includes(client)) {
+					const filteredItem = clients.filter((item) => item !== client);
+					list.set(imgName, filteredItem);
+				} else {
+					const newClients = [...clients, client];
+					list.set(imgName, newClients);
 				}
 			}
 
-			return [...arr];
-		});
+			setClientsMap(list);
+		}
 	};
 
 	const fromHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
-		const finalData = Array.from(testFiles);
+		if (clientsMap && files) {
+			const formData = new FormData();
+			formData.append("album_id", String(albumId));
+			formData.append("Content-Type", "multipart/form-data");
+			for (let i = 0; i < files.length; i++) {
+				const fileName = files[i].name;
+				const clients = clientsMap.get(fileName)?.join();
+				formData.append("file", files[i], files[i].name);
+				if (clients) {
+					formData.append(`clients${i}`, clients);
+				}
+			}
 
-		const formData = new FormData();
-		formData.append("album_id", String(albumId));
-		formData.append("Content-Type", "multipart/form-data");
-		for (let i = 0; i < finalData.length; i++) {
-			console.log(finalData[i]);
-			formData.append("file", finalData[i][1].file, finalData[i][0]);
-			formData.append(`clients${i}`, finalData[i][1].clients.map((item) => item.phone_number).join());
+			const data = await request("/photos", "POST", formData, {}, true);
+
+			if (data?.success) {
+				setTimeout(() => window.location.reload(), 1000);
+			}
 		}
-
-		const data = await request("/photos", "POST", formData, {}, true);
-
-		console.log(data);
-
-		// addNewPhoto(data);
-		// setFiles([]);
 	};
-	console.log(testFiles);
 
 	return (
 		<form className="form" onSubmit={fromHandler} encType="multipart/form-data">
@@ -99,14 +94,15 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 				</label>
 			</div>
 			<div className="form__photos">
-				{testFiles &&
-					Array.from(testFiles).map((item) => (
+				{clientsMap &&
+					Array.from(clientsMap).map((item, index) => (
 						<div className="form__wrapper" key={item[0]}>
-							<img className="form__photo" src={URL.createObjectURL(item[1].file)} alt={item[0]} />
+							<img className="form__photo" src={URL.createObjectURL(files[index])} alt={item[0]} />
 							<button className="form__remove btn" type="button" onClick={() => removeFileHandler(item[0])}>
 								&times;
 							</button>
-							<Select options={clients} value={item[1].clients} setTestFiles={selectClientsHandler} imgName={item[0]} />
+							<Select options={clientsNumbers} value={item[1]} changeClients={selectClientsHandler} imgName={item[0]} />
+							<SelectInput changeClients={selectClientsHandler} imgName={item[0]} />
 						</div>
 					))}
 			</div>
