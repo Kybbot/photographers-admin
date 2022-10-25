@@ -4,7 +4,7 @@ import { AlbumType, ClientsType } from "../@types/api";
 
 export type AlbumsStore = {
 	albums: AlbumType[];
-	clients: ClientsType[];
+	clientsNumbers: string[];
 	setAllAlbums: (albums: AlbumType[]) => void;
 	addNewAlbum: (album: AlbumType) => void;
 	setAllClients: (clients: ClientsType[]) => void;
@@ -12,7 +12,7 @@ export type AlbumsStore = {
 
 export const useAlbums = create<AlbumsStore>()((set, get) => ({
 	albums: [],
-	clients: [],
+	clientsNumbers: [],
 	setAllAlbums: (albums) => {
 		set({ albums: albums });
 	},
@@ -24,6 +24,6 @@ export const useAlbums = create<AlbumsStore>()((set, get) => ({
 		});
 	},
 	setAllClients: (clients) => {
-		set({ clients: clients });
+		set({ clientsNumbers: clients.map((item) => item.phone_number) });
 	},
 }));

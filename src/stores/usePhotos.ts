@@ -7,10 +7,9 @@ export type PhotosStore = {
 	photos: PhotoType[];
 	setAlbumData: (data: AlbumType) => void;
 	setAlbumPhotos: (photos: PhotoType[]) => void;
-	addNewPhoto: (newPhotos: PhotoType[]) => void;
 };
 
-export const usePhotos = create<PhotosStore>()((set, get) => ({
+export const usePhotos = create<PhotosStore>()((set) => ({
 	albumData: null,
 	photos: [],
 	setAlbumData: (data) => {
@@ -18,12 +17,5 @@ export const usePhotos = create<PhotosStore>()((set, get) => ({
 	},
 	setAlbumPhotos: (photos) => {
 		set({ photos: photos });
-	},
-	addNewPhoto: (newPhotos) => {
-		const { photos } = get();
-
-		set({
-			photos: [...photos, ...newPhotos],
-		});
 	},
 }));

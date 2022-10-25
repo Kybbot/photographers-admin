@@ -18,7 +18,7 @@ const App: React.FC = () => {
 	const { isLoggedIn } = useAuthContext();
 	const { request } = useAuthFetch();
 
-	const [clients, setAllClients] = useAlbums((state) => [state.clients, state.setAllClients]);
+	const [clientsNumbers, setAllClients] = useAlbums((state) => [state.clientsNumbers, state.setAllClients]);
 
 	React.useEffect(() => {
 		const getClients = async () => {
@@ -29,10 +29,10 @@ const App: React.FC = () => {
 			}
 		};
 
-		if (isLoggedIn && !clients.length) {
+		if (isLoggedIn && !clientsNumbers.length) {
 			void getClients();
 		}
-	}, [isLoggedIn, request, clients, setAllClients]);
+	}, [isLoggedIn, request, clientsNumbers, setAllClients]);
 
 	if (isLoggedIn) {
 		return (
