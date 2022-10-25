@@ -109,3 +109,24 @@
 	font-size: 14px;
 	color: #777;
 }
+
+.selectInput {
+	position: relative;
+	height: 39.2px;
+}
+
+.selectInput__input {
+	width: 100%;
+}
+
+.selectInput__btn {
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 0;
+	width: 30px;
+	height: 30px;
+	font-size: 13px;
+	border-radius: 50%;
+}
