@@ -29,10 +29,10 @@ const App: React.FC = () => {
 			}
 		};
 
-		if (!clients.length) {
+		if (isLoggedIn && !clients.length) {
 			void getClients();
 		}
-	}, [request, clients, setAllClients]);
+	}, [isLoggedIn, request, clients, setAllClients]);
 
 	if (isLoggedIn) {
 		return (
