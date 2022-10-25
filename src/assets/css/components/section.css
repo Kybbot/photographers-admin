@@ -26,6 +26,11 @@
 	gap: 24px;
 }
 
+.section__wrapper {
+	box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+	border-radius: var(--radius);
+}
+
 .section__img {
 	display: block;
 	width: 100%;
