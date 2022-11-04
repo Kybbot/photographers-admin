@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useAuthContext } from "../../context/AuthContext";
-
 import { Modal, InfoMessage } from "../../components";
 import { NewAlbumForm } from "./components/NewAlbumForm";
 import { AlbumItem } from "./components/AlbumItem";
@@ -13,7 +11,6 @@ import { useAlbums } from "../../stores/useAlbums";
 import { AlbumType } from "../../@types/api";
 
 const Albums: React.FC = () => {
-	const { deleteToken } = useAuthContext();
 	const { loading, error, request } = useAuthFetch();
 
 	const [albums, setAllAlbums] = useAlbums((state) => [state.albums, state.setAllAlbums]);
@@ -54,9 +51,6 @@ const Albums: React.FC = () => {
 					<h1 className="section__title" id="albumsSectionTitle">
 						Albums Catalog
 					</h1>
-					<button onClick={deleteToken} type="button" className="btn section__btn">
-						Logout
-					</button>
 				</div>
 				<div className="section__grid">
 					<article className="section__article">
