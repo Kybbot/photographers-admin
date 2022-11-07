@@ -10,13 +10,14 @@ type NewPhotosFormProps = {
 };
 
 export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhotosFormProps) => {
-	const { loading, error, success, request } = useAuthFetch();
+	const { loading, error, request } = useAuthFetch();
 
 	const clientsNumbers = useAlbums((state) => state.clientsNumbers);
 
 	const [clientsMap, setClientsMap] = useState<Map<string, string[]>>();
 	const [files, setFiles] = useState<File[]>([]);
 	const [clientsError, setClientsError] = useState<string | null>(null);
+	const [successState, setSuccessState] = useState(false);
 
 	const filesHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files) {
@@ -86,6 +87,7 @@ export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhoto
 			const data = await request("/photos", "POST", formData, {}, true);
 
 			if (data?.success) {
+				setSuccessState(true);
 				setTimeout(() => window.location.reload(), 1000);
 			}
 		}
@@ -112,12 +114,12 @@ export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhoto
 						</div>
 					))}
 			</div>
-			<button type="submit" className="btn" disabled={loading || !!error || success || !clientsMap?.size}>
+			<button type="submit" className="btn" disabled={loading || !!error || successState || !clientsMap?.size}>
 				Upload Photos
 			</button>
 			{clientsError ? <InfoMessage type="loading" message={clientsError} /> : null}
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
-			{success ? <InfoMessage type="success" message="Photos were saved successfully" /> : null}
+			{successState ? <InfoMessage type="success" message="Photos were saved successfully" /> : null}
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);

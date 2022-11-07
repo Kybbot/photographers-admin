@@ -8,12 +8,10 @@ export const useAuthFetch = () => {
 	const { authFetch } = useAuthContext();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [success, setSuccess] = useState(false);
 
 	const request = useCallback(
 		async <T,>(endpoint: string, method?: string, body?: BodyInit, headers?: HeadersInit, isItImage?: boolean) => {
 			setError(null);
-			setSuccess(false);
 			setLoading(true);
 
 			try {
@@ -35,6 +33,7 @@ export const useAuthFetch = () => {
 				const response = await authFetch(`${import.meta.env.VITE_API_ENDPOINT}${endpoint}`, init);
 
 				const data = (await response.json()) as ApiResponse<T>;
+				console.log(data);
 
 				if (!response.ok && !data.success) {
 					setLoading(false);
@@ -42,7 +41,6 @@ export const useAuthFetch = () => {
 				}
 
 				if (data.success) {
-					setSuccess(true);
 					setLoading(false);
 					return data;
 				}
@@ -56,5 +54,5 @@ export const useAuthFetch = () => {
 		[authFetch]
 	);
 
-	return { loading, error, success, request };
+	return { loading, error, request };
 };

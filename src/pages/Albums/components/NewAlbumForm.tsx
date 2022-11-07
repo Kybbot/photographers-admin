@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 
 import { InfoMessage } from "../../../components";
 
@@ -7,8 +7,12 @@ import { useAlbums } from "../../../stores/useAlbums";
 
 import { AlbumType } from "../../../@types/api";
 
-export const NewAlbumForm: FC = React.memo(() => {
-	const { loading, error, success, request } = useAuthFetch();
+type NewAlbumFormProps = {
+	active: boolean;
+};
+
+export const NewAlbumForm: FC<NewAlbumFormProps> = React.memo(({ active }: NewAlbumFormProps) => {
+	const { loading, error, request } = useAuthFetch();
 
 	const addNewAlbumZus = useAlbums((state) => state.addNewAlbum);
 
@@ -19,6 +23,7 @@ export const NewAlbumForm: FC = React.memo(() => {
 	};
 
 	const [formState, setFormState] = useState(initialState);
+	const [successState, setSuccessState] = useState(false);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
@@ -43,10 +48,15 @@ export const NewAlbumForm: FC = React.memo(() => {
 
 		if (result?.success) {
 			addNewAlbumZus(result.data[0]);
+			setSuccessState(true);
 		}
 
 		setFormState(initialState);
 	};
+
+	useEffect(() => {
+		setSuccessState(false);
+	}, [active]);
 
 	return (
 		<form className="form" onSubmit={fromHandler}>
@@ -86,11 +96,11 @@ export const NewAlbumForm: FC = React.memo(() => {
 					onChange={inputHandler}
 				/>
 			</label>
-			<button type="submit" className="btn" disabled={loading || !!error || success}>
+			<button type="submit" className="btn" disabled={loading || !!error || successState}>
 				Save
 			</button>
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
-			{success ? <InfoMessage type="success" message="The album was created successfully" /> : null}
+			{successState ? <InfoMessage type="success" message="The album was created successfully" /> : null}
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);
