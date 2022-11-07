@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { useAuthContext } from "./context/AuthContext";
@@ -33,6 +33,19 @@ const App: React.FC = () => {
 			void getClients();
 		}
 	}, [isLoggedIn, request, clientsNumbers, setAllClients]);
+
+	useEffect(() => {
+		function handleResize() {
+			const vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty("--vh", `${vh}px`);
+		}
+
+		window.addEventListener("resize", handleResize);
+
+		handleResize();
+
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
 	if (isLoggedIn) {
 		return (
