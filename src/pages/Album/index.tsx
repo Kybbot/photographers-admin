@@ -13,7 +13,8 @@ import { AlbumType, PhotoType } from "../../@types/api";
 
 const Album: FC = () => {
 	const { pathname } = useLocation();
-	const { loading, error, request } = useAuthFetch();
+	const { loading: albumLoading, error: albumError, request: requestALbum } = useAuthFetch();
+	const { loading: photosLoading, error: photosError, request: requestPhotos } = useAuthFetch();
 
 	const [albumData, setAlbumData, albumPhotos, setAlbumPhotos] = usePhotos((state) => [
 		state.albumData,
@@ -30,7 +31,7 @@ const Album: FC = () => {
 		const albumId = pathname.split("/")[2];
 
 		const getAlbum = async () => {
-			const result = await request<[AlbumType]>(`/album/${albumId}`, "GET");
+			const result = await requestALbum<[AlbumType]>(`/album/${albumId}`, "GET");
 
 			if (result?.success) {
 				setAlbumData(result.data[0]);
@@ -38,7 +39,7 @@ const Album: FC = () => {
 		};
 
 		const getAlbumPhotos = async () => {
-			const result = await request<PhotoType[]>(`/photos/${albumId}`, "GET");
+			const result = await requestPhotos<PhotoType[]>(`/photos/${albumId}`, "GET");
 
 			if (result?.success) {
 				setAlbumPhotos(result.data);
@@ -47,18 +48,18 @@ const Album: FC = () => {
 
 		void getAlbum();
 		void getAlbumPhotos();
-	}, [request, pathname, setAlbumData, setAlbumPhotos]);
+	}, [requestALbum, requestPhotos, pathname, setAlbumData, setAlbumPhotos]);
 
 	useEffect(() => {
 		return () => setAlbumPhotos([]);
 	}, [setAlbumPhotos]);
 
-	if (loading) {
+	if (albumLoading || photosLoading) {
 		return <InfoMessage type="loading" message="Loading" />;
 	}
 
-	if (error) {
-		return <InfoMessage type="error" message={error} />;
+	if (albumError || photosError) {
+		return <InfoMessage type="error" message={albumError || photosError || ""} />;
 	}
 
 	return (
