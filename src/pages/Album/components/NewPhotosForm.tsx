@@ -16,6 +16,7 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 
 	const [clientsMap, setClientsMap] = useState<Map<string, string[]>>();
 	const [files, setFiles] = useState<File[]>([]);
+	const [clientsError, setClientsError] = useState<string | null>(null);
 
 	const filesHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files) {
@@ -38,6 +39,7 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 			list.delete(name);
 
 			setClientsMap(list);
+			setFiles((prev) => prev.filter((item) => item.name !== name));
 		}
 	};
 
@@ -63,6 +65,7 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 
 	const fromHandler = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		setClientsError(null);
 
 		if (clientsMap && files) {
 			const formData = new FormData();
@@ -74,6 +77,9 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 				formData.append("file", files[i], files[i].name);
 				if (clients) {
 					formData.append(`clients${i}`, clients);
+				} else {
+					setClientsError(`Fill in user phone numbers for ${files[i].name}`);
+					return;
 				}
 			}
 
@@ -88,7 +94,7 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 	return (
 		<form className="form" onSubmit={fromHandler} encType="multipart/form-data">
 			<div className="form__files">
-				<input id="newPhotos" type="file" name="file" accept="image/*" multiple onChange={filesHandler} />
+				<input id="newPhotos" type="file" name="file" accept="image/*" multiple onChange={filesHandler} required />
 				<label htmlFor="newPhotos" className="btn">
 					Choose Photos
 				</label>
@@ -106,9 +112,10 @@ export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId
 						</div>
 					))}
 			</div>
-			<button type="submit" className="btn">
+			<button type="submit" className="btn" disabled={loading || !!error || success || !clientsMap?.size}>
 				Upload Photos
 			</button>
+			{clientsError ? <InfoMessage type="loading" message={clientsError} /> : null}
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
 			{success ? <InfoMessage type="success" message="Photos were saved successfully" /> : null}
 			{error ? <InfoMessage type="error" message={error} /> : null}

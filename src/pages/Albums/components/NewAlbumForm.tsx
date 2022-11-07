@@ -86,7 +86,7 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 					onChange={inputHandler}
 				/>
 			</label>
-			<button type="submit" className="btn">
+			<button type="submit" className="btn" disabled={loading || !!error || success}>
 				Save
 			</button>
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}

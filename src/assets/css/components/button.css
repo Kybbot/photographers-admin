@@ -11,6 +11,6 @@
 }
 
 .btn:disabled {
-	background-color: var(--red-color);
+	opacity: 0.4;
 	cursor: auto;
 }
