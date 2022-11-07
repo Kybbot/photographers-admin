@@ -37,6 +37,10 @@
 	cursor: pointer;
 }
 
+#newPhotos:focus + .btn {
+	outline: 2px solid blue;
+}
+
 .form__file {
 	background-color: gray;
 	border: 1px solid gray;
@@ -64,6 +68,9 @@
 }
 
 .form__remove {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	top: 0;
 	right: 0;

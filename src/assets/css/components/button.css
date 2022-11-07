@@ -1,5 +1,7 @@
 .btn {
-	display: inline-block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	border-style: none;
 	border-radius: var(--radius);
 	background-color: var(--accent-color);

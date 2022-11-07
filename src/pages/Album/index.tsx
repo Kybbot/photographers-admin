@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { InfoMessage, Modal } from "../../components";
@@ -22,6 +22,8 @@ const Album: FC = () => {
 		state.photos,
 		state.setAlbumPhotos,
 	]);
+
+	const [isChanged, setChanged] = useState("");
 
 	const openBtnRef1 = useRef<HTMLButtonElement>(null);
 
@@ -66,8 +68,15 @@ const Album: FC = () => {
 		<>
 			{albumData && Object.keys(albumData).length !== 0 ? (
 				<>
-					<Modal active={isActive1} closeModal={closeModal1} title="Add new photos" modalContentFull>
-						<NewPhotosForm albumId={albumData.id} />
+					<Modal
+						active={isActive1}
+						closeModal={closeModal1}
+						title="Add new photos"
+						modalContentFull
+						displayType="flex"
+						dependencies={[isChanged]}
+					>
+						<NewPhotosForm albumId={albumData.id} setChanged={setChanged} />
 					</Modal>
 					<section className="section" aria-labelledby="albumSectionTitle">
 						<div className="section__container">

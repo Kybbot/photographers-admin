@@ -8,10 +8,21 @@ type ModalProps = {
 	active: boolean;
 	closeModal: () => void;
 	children: ReactNode;
+	displayType?: "block" | "flex";
 	modalContentFull?: boolean;
+	dependencies?: [string];
 };
 
-export const Modal: FC<ModalProps> = ({ title, description, active, closeModal, children, modalContentFull }) => {
+export const Modal: FC<ModalProps> = ({
+	title,
+	description,
+	active,
+	closeModal,
+	children,
+	displayType,
+	modalContentFull,
+	...dependencies
+}) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const closeBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -20,12 +31,13 @@ export const Modal: FC<ModalProps> = ({ title, description, active, closeModal, 
 
 		if (active) {
 			if (wrapperRef.current) {
-				const elems: NodeListOf<HTMLButtonElement & HTMLInputElement> =
-					wrapperRef.current.querySelectorAll("button, input");
+				const elems: NodeListOf<HTMLButtonElement & HTMLInputElement> = wrapperRef.current.querySelectorAll(
+					"button, input, div[tabindex='0']"
+				);
 				const arrOfEllems = Array.from(elems);
 
 				for (const elem of elems) {
-					elem.style.display = "block";
+					elem.style.display = displayType ? displayType : "block";
 				}
 
 				handleModalKeyboard = onTab(wrapperRef, arrOfEllems, closeModal);
@@ -34,8 +46,9 @@ export const Modal: FC<ModalProps> = ({ title, description, active, closeModal, 
 			}
 		} else {
 			if (wrapperRef.current) {
-				const elems: NodeListOf<HTMLButtonElement & HTMLInputElement> =
-					wrapperRef.current.querySelectorAll("button, input");
+				const elems: NodeListOf<HTMLButtonElement & HTMLInputElement> = wrapperRef.current.querySelectorAll(
+					"button, input, div[tabindex='0']"
+				);
 
 				for (const elem of elems) {
 					elem.style.display = "none";
@@ -44,7 +57,7 @@ export const Modal: FC<ModalProps> = ({ title, description, active, closeModal, 
 		}
 
 		return () => document.removeEventListener("keydown", handleModalKeyboard);
-	}, [active, closeModal]);
+	}, [active, closeModal, displayType, dependencies]);
 
 	useEffect(() => {
 		if (active) {

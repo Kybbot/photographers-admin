@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, memo, useState } from "react";
+import React, { ChangeEvent, Dispatch, FC, FormEvent, memo, useState } from "react";
 
 import { InfoMessage, Select, SelectInput } from "../../../components";
 
@@ -7,9 +7,10 @@ import { useAlbums } from "../../../stores/useAlbums";
 
 type NewPhotosFormProps = {
 	albumId: number;
+	setChanged: Dispatch<React.SetStateAction<string>>;
 };
 
-export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhotosFormProps) => {
+export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId, setChanged }: NewPhotosFormProps) => {
 	const { loading, error, request } = useAuthFetch();
 
 	const clientsNumbers = useAlbums((state) => state.clientsNumbers);
@@ -31,6 +32,7 @@ export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhoto
 
 			setFiles(files);
 			setClientsMap(list);
+			setChanged("changed");
 		}
 	};
 
@@ -41,6 +43,7 @@ export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhoto
 
 			setClientsMap(list);
 			setFiles((prev) => prev.filter((item) => item.name !== name));
+			setChanged("changed");
 		}
 	};
 
@@ -61,6 +64,7 @@ export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhoto
 			}
 
 			setClientsMap(list);
+			setChanged("changed");
 		}
 	};
 
