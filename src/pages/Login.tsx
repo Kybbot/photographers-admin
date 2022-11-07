@@ -77,6 +77,7 @@ const Login: FC = () => {
 							id="login"
 							name="login"
 							autoComplete="username"
+							required
 						/>
 					</label>
 					<label className="form__label" htmlFor="password">
@@ -89,6 +90,7 @@ const Login: FC = () => {
 							id="password"
 							name="password"
 							autoComplete="new-password"
+							required
 						/>
 					</label>
 					<button type="submit" className="btn">
