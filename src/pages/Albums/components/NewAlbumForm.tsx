@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 
 import { InfoMessage } from "../../../components";
 
@@ -7,7 +7,7 @@ import { useAlbums } from "../../../stores/useAlbums";
 
 import { AlbumType } from "../../../@types/api";
 
-export const NewAlbumForm: React.FC = React.memo(() => {
+export const NewAlbumForm: FC = React.memo(() => {
 	const { loading, error, success, request } = useAuthFetch();
 
 	const addNewAlbumZus = useAlbums((state) => state.addNewAlbum);
@@ -18,7 +18,7 @@ export const NewAlbumForm: React.FC = React.memo(() => {
 		date: "",
 	};
 
-	const [formState, setFormState] = React.useState(initialState);
+	const [formState, setFormState] = useState(initialState);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, FC, ReactNode, useContext } from "react";
 
 import { useCreateAuthProvider } from "../services/jwt";
 import { LocalStorageTokenType } from "../@types/jwt";
@@ -11,16 +11,16 @@ export type AuthContextType = {
 };
 
 type AuthProviderType = {
-	children: React.ReactNode;
+	children: ReactNode;
 };
 
-const AuthContext = React.createContext<Partial<AuthContextType>>({});
+const AuthContext = createContext<Partial<AuthContextType>>({});
 
 export const useAuthContext = () => {
-	return React.useContext(AuthContext) as AuthContextType;
+	return useContext(AuthContext) as AuthContextType;
 };
 
-export const AuthProvider: React.FC<AuthProviderType> = ({ children }) => {
+export const AuthProvider: FC<AuthProviderType> = ({ children }) => {
 	const { authFetch, saveToken, deleteToken, useAuth } = useCreateAuthProvider();
 
 	const isLoggedIn = useAuth();

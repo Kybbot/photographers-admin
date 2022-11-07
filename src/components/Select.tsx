@@ -1,4 +1,4 @@
-import React, { useCallback, KeyboardEvent } from "react";
+import React, { useCallback, KeyboardEvent, useState, FC } from "react";
 
 type SelectProps = {
 	options: string[];
@@ -7,9 +7,9 @@ type SelectProps = {
 	changeClients: (client: string, imgName: string) => void;
 };
 
-export const Select: React.FC<SelectProps> = ({ value, options, imgName, changeClients }) => {
-	const [isOpen, setIsOpen] = React.useState(false);
-	const [highlightedIndex, setHighlightedIndex] = React.useState(0);
+export const Select: FC<SelectProps> = ({ value, options, imgName, changeClients }) => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [highlightedIndex, setHighlightedIndex] = useState(0);
 
 	const selectOption = useCallback(
 		(option: string) => {

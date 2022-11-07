@@ -1,18 +1,18 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 
 import { useAuthContext } from "../context/AuthContext";
 import { InfoMessage } from "../components";
 import { loginResponse } from "../@types/api";
 
-const Login: React.FC = () => {
+const Login: FC = () => {
 	const { saveToken } = useAuthContext();
 
-	const [formState, setFormState] = React.useState({
+	const [formState, setFormState] = useState({
 		login: "",
 		password: "",
 	});
-	const [loading, setLoading] = React.useState(false);
-	const [error, setError] = React.useState<string | null>(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
 		setError(null);

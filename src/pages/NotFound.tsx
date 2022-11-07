@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
-const NotFound: React.FC = () => {
+const NotFound: FC = () => {
 	return (
 		<>
 			<h1>Page not found!</h1>

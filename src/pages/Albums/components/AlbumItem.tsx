@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
 import { gradients } from "../../../constants/gradients";
@@ -10,7 +10,7 @@ type AlbumItemProps = {
 	data: AlbumType;
 };
 
-export const AlbumItem: React.FC<AlbumItemProps> = React.memo(({ data }: AlbumItemProps) => {
+export const AlbumItem: FC<AlbumItemProps> = React.memo(({ data }: AlbumItemProps) => {
 	return (
 		<article className="section__article">
 			<div className="section__wrapper">

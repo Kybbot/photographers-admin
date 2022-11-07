@@ -1,4 +1,4 @@
-import React from "react";
+import { useCallback, useState } from "react";
 
 import { useAuthContext } from "../context/AuthContext";
 
@@ -6,11 +6,11 @@ import { ApiResponse } from "../@types/api";
 
 export const useAuthFetch = () => {
 	const { authFetch } = useAuthContext();
-	const [loading, setLoading] = React.useState(false);
-	const [error, setError] = React.useState<string | null>(null);
-	const [success, setSuccess] = React.useState(false);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
+	const [success, setSuccess] = useState(false);
 
-	const request = React.useCallback(
+	const request = useCallback(
 		async <T,>(endpoint: string, method?: string, body?: BodyInit, headers?: HeadersInit, isItImage?: boolean) => {
 			setError(null);
 			setSuccess(false);

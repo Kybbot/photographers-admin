@@ -1,13 +1,13 @@
-import React from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { LocalStorageTokenSchema, LocalStorageTokenType, TokenPayloadSchema, observerType } from "../@types/jwt";
 
 const useCreateTokenProvider = () => {
-	const _token = React.useRef<LocalStorageTokenType>(
+	const _token = useRef<LocalStorageTokenType>(
 		LocalStorageTokenSchema.parse(JSON.parse(localStorage.getItem("REACT_TOKEN_AUTH") || "null")) || null
 	);
 
-	const getExpirationDate = React.useCallback((jwtToken: string): number | null => {
+	const getExpirationDate = useCallback((jwtToken: string): number | null => {
 		if (!jwtToken) {
 			return null;
 		}
@@ -17,7 +17,7 @@ const useCreateTokenProvider = () => {
 		return (jwt && jwt.exp && jwt.exp * 1000) || null;
 	}, []);
 
-	const isExpired = React.useCallback((exp: number | null) => {
+	const isExpired = useCallback((exp: number | null) => {
 		if (!exp) {
 			return false;
 		}
@@ -25,30 +25,30 @@ const useCreateTokenProvider = () => {
 		return Date.now() > exp;
 	}, []);
 
-	const observers: Array<observerType> = React.useMemo(() => {
+	const observers: Array<observerType> = useMemo(() => {
 		return [];
 	}, []);
 
-	const subscribe = React.useCallback(
+	const subscribe = useCallback(
 		(observer: observerType) => {
 			observers.push(observer);
 		},
 		[observers]
 	);
 
-	const unsubscribe = React.useCallback(
+	const unsubscribe = useCallback(
 		(observer: observerType) => {
 			observers.filter((item) => item !== observer);
 		},
 		[observers]
 	);
 
-	const notify = React.useCallback(() => {
+	const notify = useCallback(() => {
 		const isLogged = !!_token.current;
 		observers.forEach((observer) => observer(isLogged));
 	}, [observers]);
 
-	const setToken = React.useCallback(
+	const setToken = useCallback(
 		(token: LocalStorageTokenType) => {
 			if (token) {
 				localStorage.setItem("REACT_TOKEN_AUTH", JSON.stringify(token));
@@ -62,7 +62,7 @@ const useCreateTokenProvider = () => {
 		[notify]
 	);
 
-	const getToken = React.useCallback(() => {
+	const getToken = useCallback(() => {
 		if (!_token.current) {
 			return null;
 		}
@@ -74,7 +74,7 @@ const useCreateTokenProvider = () => {
 		return _token.current && _token.current.accessToken;
 	}, [setToken, isExpired, getExpirationDate]);
 
-	const isLoggedIn = React.useCallback(() => {
+	const isLoggedIn = useCallback(() => {
 		return !!getToken();
 	}, [getToken]);
 
@@ -90,18 +90,18 @@ const useCreateTokenProvider = () => {
 export const useCreateAuthProvider = () => {
 	const tokenProvider = useCreateTokenProvider();
 
-	const saveToken = React.useCallback(
+	const saveToken = useCallback(
 		(newToken: LocalStorageTokenType) => {
 			tokenProvider.setToken(newToken);
 		},
 		[tokenProvider]
 	);
 
-	const deleteToken = React.useCallback(() => {
+	const deleteToken = useCallback(() => {
 		tokenProvider.setToken(null);
 	}, [tokenProvider]);
 
-	const authFetch = React.useCallback(
+	const authFetch = useCallback(
 		(input: RequestInfo, init?: RequestInit): Promise<Response> => {
 			const token = tokenProvider.getToken();
 
@@ -118,9 +118,9 @@ export const useCreateAuthProvider = () => {
 	);
 
 	const useAuth = () => {
-		const [isLogged, setIsLogged] = React.useState(tokenProvider.isLoggedIn());
+		const [isLogged, setIsLogged] = useState(tokenProvider.isLoggedIn());
 
-		React.useEffect(() => {
+		useEffect(() => {
 			const listener = (newIsLogged: boolean) => {
 				setIsLogged(newIsLogged);
 			};

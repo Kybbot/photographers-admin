@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useEffect, useRef } from "react";
 
 import { Modal, InfoMessage } from "../../components";
 import { NewAlbumForm } from "./components/NewAlbumForm";
@@ -10,16 +10,16 @@ import { useAlbums } from "../../stores/useAlbums";
 
 import { AlbumType } from "../../@types/api";
 
-const Albums: React.FC = () => {
+const Albums: FC = () => {
 	const { loading, error, request } = useAuthFetch();
 
 	const [albums, setAllAlbums] = useAlbums((state) => [state.albums, state.setAllAlbums]);
 
-	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
+	const openBtnRef1 = useRef<HTMLButtonElement>(null);
 
 	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal();
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const getAlbums = async () => {
 			const result = await request<AlbumType[]>("/albums", "GET");
 

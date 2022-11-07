@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { useAuthContext } from "./context/AuthContext";
@@ -14,13 +14,13 @@ import { useAlbums } from "./stores/useAlbums";
 
 import { ClientsType } from "./@types/api";
 
-const App: React.FC = () => {
+const App: FC = () => {
 	const { isLoggedIn } = useAuthContext();
 	const { request } = useAuthFetch();
 
 	const [clientsNumbers, setAllClients] = useAlbums((state) => [state.clientsNumbers, state.setAllClients]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const getClients = async () => {
 			const result = await request<ClientsType[]>("/clients", "GET");
 

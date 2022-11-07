@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 
-const MainLayout: React.FC = () => {
+const MainLayout: FC = () => {
 	return (
 		<main className="main">
 			<div className="container h-100">

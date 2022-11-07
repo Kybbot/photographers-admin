@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, memo, useState } from "react";
 
 import { InfoMessage, Select, SelectInput } from "../../../components";
 
@@ -9,7 +9,7 @@ type NewPhotosFormProps = {
 	albumId: number;
 };
 
-export const NewPhotosForm: React.FC<NewPhotosFormProps> = React.memo(({ albumId }: NewPhotosFormProps) => {
+export const NewPhotosForm: FC<NewPhotosFormProps> = memo(({ albumId }: NewPhotosFormProps) => {
 	const { loading, error, success, request } = useAuthFetch();
 
 	const clientsNumbers = useAlbums((state) => state.clientsNumbers);

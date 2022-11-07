@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { InfoMessage, Modal } from "../../components";
@@ -11,7 +11,7 @@ import { usePhotos } from "../../stores/usePhotos";
 
 import { AlbumType, PhotoType } from "../../@types/api";
 
-const Album: React.FC = () => {
+const Album: FC = () => {
 	const { pathname } = useLocation();
 	const { loading, error, request } = useAuthFetch();
 
@@ -22,11 +22,11 @@ const Album: React.FC = () => {
 		state.setAlbumPhotos,
 	]);
 
-	const openBtnRef1 = React.useRef<HTMLButtonElement>(null);
+	const openBtnRef1 = useRef<HTMLButtonElement>(null);
 
 	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal();
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const albumId = pathname.split("/")[2];
 
 		const getAlbum = async () => {
@@ -49,7 +49,7 @@ const Album: React.FC = () => {
 		void getAlbumPhotos();
 	}, [request, pathname, setAlbumData, setAlbumPhotos]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		return () => setAlbumPhotos([]);
 	}, [setAlbumPhotos]);
 
