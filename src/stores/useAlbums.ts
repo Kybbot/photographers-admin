@@ -14,13 +14,13 @@ export const useAlbums = create<AlbumsStore>()((set, get) => ({
 	albums: [],
 	clientsNumbers: [],
 	setAllAlbums: (albums) => {
-		set({ albums: albums });
+		set({ albums: albums.sort((a, b) => b.id - a.id) });
 	},
 	addNewAlbum: (album) => {
 		const { albums } = get();
 
 		set({
-			albums: [...albums, album],
+			albums: [album, ...albums],
 		});
 	},
 	setAllClients: (clients) => {
