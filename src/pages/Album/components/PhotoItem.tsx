@@ -10,7 +10,12 @@ export const PhotoItem: FC<PhotoItemProps> = memo(({ photo }: PhotoItemProps) =>
 	return (
 		<article className="section__article">
 			<div className="section__wrapper">
-				<img className="section__img" src={photo.photo_logo} alt={photo.photo_name} />
+				<img
+					className="section__img"
+					data-src={photo.photo_logo}
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
+					alt={photo.photo_name}
+				/>
 			</div>
 		</article>
 	);

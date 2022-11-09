@@ -6,6 +6,7 @@ import { AlbumItem } from "./components/AlbumItem";
 
 import { useModal } from "../../hooks/useModal";
 import { useAuthFetch } from "../../hooks/useAuthFetch";
+import { useLazyLoadImages } from "../../hooks/useLazyLoadImages";
 import { useAlbums } from "../../stores/useAlbums";
 
 import { AlbumType } from "../../@types/api";
@@ -16,6 +17,7 @@ const Albums: FC = () => {
 	const [albums, setAllAlbums] = useAlbums((state) => [state.albums, state.setAllAlbums]);
 
 	const openBtnRef1 = useRef<HTMLButtonElement>(null);
+	const photosGalleryDiv = useRef<HTMLDivElement>(null);
 
 	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal();
 
@@ -32,6 +34,8 @@ const Albums: FC = () => {
 			void getAlbums();
 		}
 	}, [request, albums, setAllAlbums]);
+
+	useLazyLoadImages(photosGalleryDiv, []);
 
 	if (loading) {
 		return <InfoMessage type="loading" message="Loading" />;
@@ -52,7 +56,7 @@ const Albums: FC = () => {
 						Albums Catalog
 					</h1>
 				</div>
-				<div className="section__grid">
+				<div className="section__grid" ref={photosGalleryDiv}>
 					<article className="section__article">
 						<button
 							ref={openBtnRef1}

@@ -17,11 +17,12 @@ export const AlbumItem: FC<AlbumItemProps> = React.memo(({ data }: AlbumItemProp
 				<img
 					className="section__img"
 					style={{ backgroundImage: gradients[getRandomNumber(0, gradients.length - 1)] }}
-					src={
+					data-src={
 						data.album_logo
 							? data.album_logo
 							: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 					}
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
 					alt={data.album_name}
 				/>
 			</div>

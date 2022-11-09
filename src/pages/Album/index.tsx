@@ -7,10 +7,12 @@ import { NewPhotosForm } from "./components/NewPhotosForm";
 
 import { useModal } from "../../hooks/useModal";
 import { useAuthFetch } from "../../hooks/useAuthFetch";
+import { useLazyLoadImages } from "../../hooks/useLazyLoadImages";
 import { usePhotos } from "../../stores/usePhotos";
 
-import { AlbumType, PhotoType } from "../../@types/api";
 import { formatDate } from "../../utils/formatDate";
+
+import { AlbumType, PhotoType } from "../../@types/api";
 
 const Album: FC = () => {
 	const { pathname } = useLocation();
@@ -27,6 +29,7 @@ const Album: FC = () => {
 	const [isChanged, setChanged] = useState("");
 
 	const openBtnRef1 = useRef<HTMLButtonElement>(null);
+	const photosGalleryDiv = useRef<HTMLDivElement>(null);
 
 	const { isActive: isActive1, openModal: openModal1, closeModal: closeModal1 } = useModal();
 
@@ -56,6 +59,8 @@ const Album: FC = () => {
 	useEffect(() => {
 		return () => setAlbumPhotos([]);
 	}, [setAlbumPhotos]);
+
+	useLazyLoadImages(photosGalleryDiv, []);
 
 	if (albumLoading || photosLoading) {
 		return <InfoMessage type="loading" message="Loading" />;
@@ -88,7 +93,7 @@ const Album: FC = () => {
 								Go back
 							</Link>
 						</div>
-						<div className="section__grid">
+						<div className="section__grid" ref={photosGalleryDiv}>
 							<article className="section__article">
 								<button
 									ref={openBtnRef1}
