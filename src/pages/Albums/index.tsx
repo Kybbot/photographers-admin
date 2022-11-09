@@ -28,7 +28,7 @@ const Albums: FC = () => {
 			}
 		};
 
-		if (!albums.length) {
+		if (!albums) {
 			void getAlbums();
 		}
 	}, [request, albums, setAllAlbums]);
@@ -44,7 +44,7 @@ const Albums: FC = () => {
 	return (
 		<>
 			<Modal active={isActive1} closeModal={closeModal1} title="Add new album">
-				<NewAlbumForm active={isActive1} />
+				<NewAlbumForm closeModal={closeModal1} />
 			</Modal>
 			<section className="section" aria-labelledby="albumsSectionTitle">
 				<div className="section__container">

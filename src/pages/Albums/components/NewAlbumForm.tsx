@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, FormEvent, useState } from "react";
 
 import { InfoMessage } from "../../../components";
 
@@ -8,13 +8,13 @@ import { useAlbums } from "../../../stores/useAlbums";
 import { AlbumType } from "../../../@types/api";
 
 type NewAlbumFormProps = {
-	active: boolean;
+	closeModal: () => void;
 };
 
-export const NewAlbumForm: FC<NewAlbumFormProps> = React.memo(({ active }: NewAlbumFormProps) => {
+export const NewAlbumForm: FC<NewAlbumFormProps> = React.memo(({ closeModal }: NewAlbumFormProps) => {
 	const { loading, error, request } = useAuthFetch();
 
-	const addNewAlbumZus = useAlbums((state) => state.addNewAlbum);
+	const addNewAlbum = useAlbums((state) => state.addNewAlbum);
 
 	const initialState = {
 		album_name: "",
@@ -23,7 +23,6 @@ export const NewAlbumForm: FC<NewAlbumFormProps> = React.memo(({ active }: NewAl
 	};
 
 	const [formState, setFormState] = useState(initialState);
-	const [successState, setSuccessState] = useState(false);
 
 	const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
@@ -47,16 +46,11 @@ export const NewAlbumForm: FC<NewAlbumFormProps> = React.memo(({ active }: NewAl
 		const result = await request<[AlbumType]>("/album", "POST", body);
 
 		if (result?.success) {
-			addNewAlbumZus(result.data[0]);
-			setSuccessState(true);
+			addNewAlbum(result.data[0]);
+			setFormState(initialState);
+			closeModal();
 		}
-
-		setFormState(initialState);
 	};
-
-	useEffect(() => {
-		setSuccessState(false);
-	}, [active]);
 
 	return (
 		<form className="form" onSubmit={fromHandler}>
@@ -96,11 +90,10 @@ export const NewAlbumForm: FC<NewAlbumFormProps> = React.memo(({ active }: NewAl
 					onChange={inputHandler}
 				/>
 			</label>
-			<button type="submit" className="btn" disabled={loading || !!error || successState}>
+			<button type="submit" className="btn" disabled={loading || !!error}>
 				Save
 			</button>
 			{loading ? <InfoMessage type="loading" message="Loading" /> : null}
-			{successState ? <InfoMessage type="success" message="The album was created successfully" /> : null}
 			{error ? <InfoMessage type="error" message={error} /> : null}
 		</form>
 	);

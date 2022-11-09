@@ -33,7 +33,6 @@ export const useAuthFetch = () => {
 				const response = await authFetch(`${import.meta.env.VITE_API_ENDPOINT}${endpoint}`, init);
 
 				const data = (await response.json()) as ApiResponse<T>;
-				console.log(data);
 
 				if (!response.ok && !data.success) {
 					setLoading(false);

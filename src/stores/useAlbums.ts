@@ -3,7 +3,7 @@ import create from "zustand";
 import { AlbumType, ClientsType } from "../@types/api";
 
 export type AlbumsStore = {
-	albums: AlbumType[];
+	albums: AlbumType[] | null;
 	clientsNumbers: string[];
 	setAllAlbums: (albums: AlbumType[]) => void;
 	addNewAlbum: (album: AlbumType) => void;
@@ -11,17 +11,22 @@ export type AlbumsStore = {
 };
 
 export const useAlbums = create<AlbumsStore>()((set, get) => ({
-	albums: [],
+	albums: null,
 	clientsNumbers: [],
 	setAllAlbums: (albums) => {
 		set({ albums: albums.sort((a, b) => b.id - a.id) });
 	},
 	addNewAlbum: (album) => {
 		const { albums } = get();
-
-		set({
-			albums: [album, ...albums],
-		});
+		if (albums) {
+			set({
+				albums: [album, ...albums],
+			});
+		} else {
+			set({
+				albums: [album],
+			});
+		}
 	},
 	setAllClients: (clients) => {
 		set({ clientsNumbers: clients.map((item) => item.phone_number) });
