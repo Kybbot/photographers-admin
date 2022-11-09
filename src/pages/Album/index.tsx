@@ -10,6 +10,7 @@ import { useAuthFetch } from "../../hooks/useAuthFetch";
 import { usePhotos } from "../../stores/usePhotos";
 
 import { AlbumType, PhotoType } from "../../@types/api";
+import { formatDate } from "../../utils/formatDate";
 
 const Album: FC = () => {
 	const { pathname } = useLocation();
@@ -81,7 +82,7 @@ const Album: FC = () => {
 					<section className="section" aria-labelledby="albumSectionTitle">
 						<div className="section__container">
 							<h1 className="section__title" id="albumSectionTitle">
-								{albumData.album_name}
+								{albumData.album_name} <span className="section__date">{formatDate(albumData.date)}</span>
 							</h1>
 							<Link to="/" className="btn section__btn" aria-label="Go back" title="Go back">
 								Go back
